@@ -1,0 +1,121 @@
+/* Глобальные стили для брендовой темы */
+
+.app-layout {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* Плавный скролл */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Стили для карточек преимуществ */
+.advantage-card:hover {
+  border-color: #19be7d !important;
+  box-shadow: 0 12px 40px rgba(25, 190, 125, 0.12) !important;
+  transform: translateY(-4px);
+}
+
+/* Общие отступы для секций */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* Кастомизация скроллбара */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #19be7d, #14a36b);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #14a36b, #0d8e58);
+}
+
+/* Утилитарные классы для текста */
+.text-gradient {
+  background: linear-gradient(135deg, #19be7d 0%, #14a36b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease forwards;
+}
+
+/* Стили для кнопок */
+.btn-outline-primary {
+  background-color: transparent;
+  border-color: #19be7d;
+  color: #19be7d;
+}
+
+.btn-outline-primary:hover {
+  background-color: #19be7d;
+  border-color: #19be7d;
+  color: #ffffff;
+}
+
+/* Стили для форм */
+.ant-form-item-label > label {
+  color: #000000 !important;
+  font-weight: 500;
+}
+
+/* Отзывчивые изображения */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Стили для списков */
+ul.custom-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.custom-list li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 8px;
+  color: #55646e;
+}
+
+ul.custom-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  background-color: #19be7d;
+  border-radius: 50%;
+}
+
+/* Стили для таблиц */
+.ant-table-thead > tr > th {
+  background-color: #f0faf5 !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #19be7d !important;
+}

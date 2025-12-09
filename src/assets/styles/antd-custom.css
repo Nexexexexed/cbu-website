@@ -1,0 +1,165 @@
+/* Брендовая цветовая палитра */
+:root {
+  --primary-green: #19be7d;
+  --primary-green-dark: #14a36b;
+  --primary-green-light: #b9ebd7;
+  --primary-green-ultralight: #f0faf5;
+  --black: #000000;
+  --white: #ffffff;
+  --gray-dark: #55646e;
+  --gray-medium: #8a9aa4;
+  --gray-light: #e6e9ec;
+  --gray-ultralight: #f8f9fa;
+}
+
+/* Кастомизация Ant Design под нашу палитру */
+.ant-btn-primary {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+  color: var(--white);
+}
+
+.ant-btn-primary:hover {
+  background-color: var(--primary-green-dark) !important;
+  border-color: var(--primary-green-dark) !important;
+}
+
+.ant-btn-default {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+.ant-btn-default:hover {
+  border-color: var(--primary-green-dark) !important;
+  color: var(--primary-green-dark) !important;
+}
+
+.ant-menu-item-selected {
+  color: var(--primary-green) !important;
+}
+
+.ant-menu-item-selected::after {
+  border-color: var(--primary-green) !important;
+}
+
+.ant-menu-item:hover {
+  color: var(--primary-green) !important;
+}
+
+/* Dropdown меню */
+.ant-dropdown-menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: var(--primary-green-ultralight) !important;
+  color: var(--primary-green) !important;
+}
+
+/* Checkbox и Radio */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.ant-radio-checked .ant-radio-inner {
+  border-color: var(--primary-green);
+}
+
+.ant-radio-checked .ant-radio-inner::after {
+  background-color: var(--primary-green);
+}
+
+/* Form элементы */
+.ant-input:focus,
+.ant-input-focused {
+  border-color: var(--primary-green) !important;
+  box-shadow: 0 0 0 2px rgba(25, 190, 125, 0.2) !important;
+}
+
+.ant-input:hover {
+  border-color: var(--primary-green) !important;
+}
+
+/* Card */
+.ant-card:hover {
+  border-color: var(--primary-green-light) !important;
+  box-shadow: 0 4px 20px rgba(25, 190, 125, 0.1) !important;
+}
+
+/* Timeline */
+.ant-timeline-item-head-blue {
+  background-color: var(--primary-green) !important;
+  border-color: var(--primary-green) !important;
+}
+
+/* Progress */
+.ant-progress-success-bg,
+.ant-progress-bg {
+  background-color: var(--primary-green) !important;
+}
+
+/* Tag */
+.ant-tag-green {
+  background-color: var(--primary-green-light) !important;
+  border-color: var(--primary-green-light) !important;
+  color: var(--primary-green-dark) !important;
+}
+
+/* Общие стили */
+body {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  color: var(--black);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--black);
+  font-weight: 600;
+}
+
+p {
+  color: var(--gray-dark);
+}
+
+a {
+  color: var(--primary-green);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--primary-green-dark);
+}
+
+/* Утилитарные классы */
+.bg-primary-light {
+  background-color: var(--primary-green-ultralight) !important;
+}
+
+.bg-gray-ultralight {
+  background-color: var(--gray-ultralight) !important;
+}
+
+.text-primary {
+  color: var(--primary-green) !important;
+}
+
+.text-primary-dark {
+  color: var(--primary-green-dark) !important;
+}
+
+.text-gray-dark {
+  color: var(--gray-dark) !important;
+}
+
+.border-primary-light {
+  border-color: var(--primary-green-light) !important;
+}
