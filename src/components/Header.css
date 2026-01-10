@@ -102,6 +102,10 @@
   flex: 1;
 }
 
+.logo-image {
+  width: 80%;
+}
+
 @media (max-width: 1200px) {
   .desktop-menu {
     gap: 20px;
@@ -113,6 +117,10 @@
 
   .logo {
     min-width: 240px;
+  }
+
+  .logo-image {
+    width: 45%;
   }
 }
 

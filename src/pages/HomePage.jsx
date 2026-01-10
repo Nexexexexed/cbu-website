@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Row,
   Col,
@@ -12,34 +12,20 @@ import {
   Modal,
   Collapse,
   Steps,
-  Statistic,
-  Alert,
-  Tag,
-  Avatar,
-  Timeline,
-  Tooltip,
 } from "antd";
 import {
   CheckOutlined,
   CalculatorOutlined,
   FileTextOutlined,
   TeamOutlined,
-  SafetyCertificateOutlined,
   BarChartOutlined,
-  UserAddOutlined,
   PhoneOutlined,
-  ClockCircleOutlined,
   DollarOutlined,
   AuditOutlined,
-  LineChartOutlined,
   UserSwitchOutlined,
-  PercentageOutlined,
   ArrowRightOutlined,
-  RightCircleOutlined,
   DownCircleOutlined,
-  StarOutlined,
   BankOutlined,
-  SecurityScanOutlined,
   GlobalOutlined,
   SolutionOutlined,
   QuestionCircleOutlined,
@@ -47,18 +33,14 @@ import {
   UserOutlined,
   EnvironmentOutlined,
   MessageOutlined,
-  CloseCircleOutlined,
   PlusOutlined,
   MinusOutlined,
   RocketOutlined,
-  TrophyOutlined,
-  HeartOutlined,
-  SafetyOutlined,
-  CrownOutlined,
-  BulbOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
+
+import teamImage from "../assets/images/team-for-grow.webp";
 
 const { Title, Paragraph, Text } = Typography;
 const { Step } = Steps;
@@ -90,33 +72,28 @@ const HomePage = () => {
     {
       title: "Заявка",
       icon: <MailOutlined />,
-      content: "Оставьте заявку на сайте или по телефону",
+      content: "Оформление заявки с нашим менеджером",
     },
     {
-      title: "Аудит",
+      title: "Анкетирование",
       icon: <AuditOutlined />,
-      content: "Бесплатный анализ вашего бизнеса",
+      content:
+        "Проведение анкетирования, запрашиваем необходимую информацию для оценки стоимости",
     },
     {
       title: "Предложение",
       icon: <FileTextOutlined />,
-      content: "Подготовка индивидуального КП",
+      content: "Готовим коммерческое предложение,согласовываем все детали",
     },
     {
       title: "Подключение",
       icon: <CheckOutlined />,
-      content: "Начало работы в течение 24 часов",
+      content: "Заключаем договор",
     },
   ];
 
   // FAQ данные
   const faqItems = [
-    {
-      question:
-        "Кадровый учет входит в стоимость услуг или оплачивается дополнительно?",
-      answer:
-        "Если вы выбираете тариф «Комплексный сервис», то в него по умолчанию уже входит ведение кадрового учета, ничего доплачивать дополнительно не нужно. В любом случае мы подробно консультируем по условиям разных тарифов и подбираем оптимальный вариант, адаптировав его под ваши требования.",
-    },
     {
       question: "От чего зависит стоимость бухгалтерских услуг?",
       answer:
@@ -140,29 +117,14 @@ const HomePage = () => {
       answer:
         "Конечно! Мы предлагаем модульный подход — можно заказать только сдачу отчетности, только расчет зарплаты или любую другую отдельную услугу.",
     },
-    {
-      question: "Несете ли вы ответственность за свою работу?",
-      answer:
-        "Да, наша профессиональная ответственность застрахована на 1 000 000 рублей. Мы гарантируем качество своих услуг и готовы нести финансовую ответственность за ошибки.",
-    },
   ];
 
   // Преимущества с иконками
   const advantages = [
     {
-      icon: <SafetyOutlined />,
-      title: "Застрахованная ответственность",
-      desc: "Профессиональная ответственность застрахована на 1 000 000 ₽",
-    },
-    {
-      icon: <CrownOutlined />,
-      title: "Опыт 20+ лет",
-      desc: "Работаем с 2003 года, знаем все нюансы законодательства",
-    },
-    {
       icon: <TeamOutlined />,
       title: "Команда экспертов",
-      desc: "Дипломированные специалисты высшей категории",
+      desc: "Дипломированные и аттестованные специалисты с опытом более 20 лет. ",
     },
     {
       icon: <GlobalOutlined />,
@@ -173,11 +135,6 @@ const HomePage = () => {
       icon: <DollarOutlined />,
       title: "Прозрачные тарифы",
       desc: "Фиксированная стоимость без скрытых платежей",
-    },
-    {
-      icon: <ClockCircleOutlined />,
-      title: "Срочная отчетность",
-      desc: "Сдаем отчетность в день обращения при необходимости",
     },
   ];
 
@@ -236,12 +193,10 @@ const HomePage = () => {
       icon: <UserSwitchOutlined />,
       description: "Передача непрофильных функций на обслуживание",
       features: [
-        "Подбор персонала (с 01.01.2026)",
+        "Подбор персонала",
         "Кадровое делопроизводство",
-        "Документооборот и архив",
-        "ИТ-поддержка и автоматизация",
-        "Административное сопровождение",
-        "Страхование бизнеса и сотрудников",
+        "Организация документооборота и архива",
+        "Все виды страхования",
       ],
       buttonText: "Смотреть",
       fullDescription:
@@ -260,7 +215,7 @@ const HomePage = () => {
       // Здесь обычно отправка данных на сервер
       Modal.success({
         title: "Заявка успешно отправлена!",
-        content: "Наш менеджер свяжется с вами в течение 15 минут.",
+        content: "Наш менеджер свяжется с вами",
       });
       form.resetFields();
       setIsModalVisible(false);
@@ -288,7 +243,7 @@ const HomePage = () => {
           minHeight: "700px",
           backgroundImage: `
             linear-gradient(rgba(30, 34, 40, 0.7), rgba(30, 34, 40, 0.7)),
-            url('/team-for-grow.webp')
+            url(${teamImage})
           `,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -316,22 +271,6 @@ const HomePage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div style={{ marginBottom: "24px" }}>
-            <Title
-              style={{
-                color: "white",
-                fontSize: "3.5rem",
-                marginBottom: "24px",
-                fontWeight: 800,
-                lineHeight: 1.2,
-              }}
-            >
-              КОМПЛЕКСНОЕ СОПРОВОЖДЕНИЕ
-              <br />
-              <span style={{ color: "#19be7d" }}>ВАШЕГО БИЗНЕСА</span>
-            </Title>
-          </div>
-
           <Paragraph
             style={{
               color: "white",
@@ -368,26 +307,6 @@ const HomePage = () => {
                 Начать сотрудничество
               </Button>
             </Motion.div>
-
-            <Motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                size="large"
-                style={{
-                  backgroundColor: "transparent",
-                  borderColor: "#ffffff",
-                  color: "#ffffff",
-                  height: "56px",
-                  padding: "0 40px",
-                  borderRadius: "8px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                }}
-                onClick={() => navigate("/services")}
-                icon={<ArrowRightOutlined />}
-              >
-                Смотреть услуги
-              </Button>
-            </Motion.div>
           </Space>
 
           {/* Анимированные цифры в герое */}
@@ -405,7 +324,6 @@ const HomePage = () => {
           >
             {[
               { value: "20+", label: "Лет опыта" },
-              { value: "500+", label: "Клиентов" },
               { value: "99.8%", label: "Успешных кейсов" },
               { value: "24/7", label: "Поддержка" },
             ].map((stat, index) => (
@@ -511,6 +429,7 @@ const HomePage = () => {
                   <Motion.div
                     variants={fadeInUp}
                     whileHover={cardHoverAnimation}
+                    style={{ height: "100%" }}
                   >
                     <Card
                       hoverable
@@ -607,7 +526,7 @@ const HomePage = () => {
       {/* Секция услуг с детальным описанием */}
       <Motion.section
         style={{
-          padding: "100px 20px",
+          padding: "50px 20px",
           backgroundColor: "#f8f9fa",
         }}
         initial={{ opacity: 0 }}
@@ -616,21 +535,30 @@ const HomePage = () => {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Motion.div
-            style={{ textAlign: "center", marginBottom: "60px" }}
+            style={{ textAlign: "center", marginBottom: "40px" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
           >
-            <Title level={2} style={{ color: "#000000", marginBottom: "16px" }}>
+            <Title
+              level={2}
+              style={{
+                color: "#000000",
+                marginBottom: "16px",
+              }}
+            >
               Услуги для бизнеса
             </Title>
             <Paragraph
               style={{
-                fontSize: "18px",
-                color: "#55646e",
+                fontSize: "20px",
+                color: "white",
                 maxWidth: "700px",
                 margin: "0 auto",
+                backgroundColor: "rgb(25, 190, 125)",
+                padding: "25px 10px",
+                borderRadius: "16px",
               }}
             >
               Освободите себя от рутинных задач и переключите свое внимание на
@@ -778,7 +706,7 @@ const HomePage = () => {
       {/* Секция "Почему выбирают нас" */}
       <Motion.section
         style={{
-          padding: "100px 20px",
+          padding: "50px 20px",
           backgroundColor: "#ffffff",
         }}
         initial={{ opacity: 0 }}
@@ -787,7 +715,7 @@ const HomePage = () => {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Motion.div
-            style={{ textAlign: "center", marginBottom: "60px" }}
+            style={{ textAlign: "center", marginBottom: "40px" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
@@ -798,10 +726,13 @@ const HomePage = () => {
             </Title>
             <Paragraph
               style={{
-                fontSize: "18px",
-                color: "#55646e",
+                fontSize: "20px",
+                color: "white",
                 maxWidth: "700px",
                 margin: "0 auto",
+                backgroundColor: "rgb(25, 190, 125)",
+                padding: "25px 10px",
+                borderRadius: "16px",
               }}
             >
               Передавая часть своих бизнес-задач к нам, вы можете быть уверены в
@@ -961,6 +892,7 @@ const HomePage = () => {
                                 color: "#000000",
                                 paddingRight: "20px",
                                 lineHeight: 1.4,
+                                height: "3rem",
                               }}
                             >
                               {item.question}
@@ -1199,7 +1131,7 @@ const HomePage = () => {
                   Получите коммерческое предложение
                 </Title>
                 <Paragraph style={{ color: "#55646e" }}>
-                  Заполните форму и мы свяжемся с вами в течение 15 минут
+                  Заполните форму и мы свяжемся с вами
                 </Paragraph>
               </div>
 
@@ -1233,29 +1165,6 @@ const HomePage = () => {
                       Оставить заявку
                     </Button>
                   </Motion.div>
-
-                  <Motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    style={{ flex: 1, minWidth: "200px" }}
-                  >
-                    <Button
-                      size="large"
-                      style={{
-                        width: "100%",
-                        borderColor: "#19be7d",
-                        color: "#19be7d",
-                        height: "56px",
-                        fontSize: "16px",
-                        fontWeight: 600,
-                        borderRadius: "8px",
-                      }}
-                      onClick={() => navigate("/pricing")}
-                      icon={<DollarOutlined />}
-                    >
-                      Смотреть тарифы
-                    </Button>
-                  </Motion.div>
                 </div>
 
                 <Divider style={{ margin: "8px 0", color: "#e6e9ec" }}>
@@ -1264,7 +1173,7 @@ const HomePage = () => {
 
                 <div style={{ textAlign: "center" }}>
                   <Motion.a
-                    href="tel:+78001234567"
+                    href="tel:+79301208782"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -1283,7 +1192,7 @@ const HomePage = () => {
                     }}
                   >
                     <PhoneOutlined />
-                    <span>8 (800) 123-45-67</span>
+                    <span>+7 (930) 120-87-82</span>
                   </Motion.a>
                   <Paragraph
                     style={{
@@ -1292,7 +1201,7 @@ const HomePage = () => {
                       fontSize: "14px",
                     }}
                   >
-                    Бесплатный звонок по России • Пн-Пт: 9:00-18:00
+                    Бесплатный звонок по России
                   </Paragraph>
                 </div>
               </Space>
@@ -1358,7 +1267,7 @@ const HomePage = () => {
           >
             <Input
               size="large"
-              placeholder="+7 (900) 123-45-67"
+              placeholder="+7 (930) 120-87-82"
               prefix={<PhoneOutlined />}
             />
           </Form.Item>

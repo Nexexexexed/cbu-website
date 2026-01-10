@@ -10,12 +10,13 @@ import {
   CalculatorOutlined,
   SafetyCertificateOutlined,
   BarChartOutlined,
-  UserAddOutlined,
   SolutionOutlined,
   CaretDownOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
+
+import logo from "../assets/images/logo.svg";
 
 const Header = ({ isTransparent }) => {
   const [visible, setVisible] = useState(false);
@@ -47,39 +48,6 @@ const Header = ({ isTransparent }) => {
         label: (
           <Link to="/services#outsourcing">Аутсорсинг бизнес-процессов</Link>
         ),
-      },
-      {
-        key: "insurance",
-        icon: <SafetyCertificateOutlined />,
-        label: <Link to="/services#insurance">Страхование</Link>,
-      },
-      {
-        key: "hr",
-        icon: <UserAddOutlined />,
-        label: (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <span>Подбор персонала</span>
-            <Badge
-              count="01.01.2026"
-              style={{
-                backgroundColor: "#b9ebd7",
-                color: "#14a36b",
-                fontSize: "10px",
-                padding: "0 6px",
-                height: "18px",
-                lineHeight: "18px",
-              }}
-            />
-          </div>
-        ),
-        disabled: true,
       },
     ],
   };
@@ -126,16 +94,6 @@ const Header = ({ isTransparent }) => {
         <Link to="/about" className="menu-link-wrapper">
           <TeamOutlined style={{ marginRight: "8px" }} />
           <span>О нас</span>
-          <span className="menu-item-underline"></span>
-        </Link>
-      ),
-    },
-    {
-      key: "cases",
-      label: (
-        <Link to="/cases" className="menu-link-wrapper">
-          <SolutionOutlined style={{ marginRight: "8px" }} />
-          <span>Кейсы</span>
           <span className="menu-item-underline"></span>
         </Link>
       ),
@@ -204,45 +162,6 @@ const Header = ({ isTransparent }) => {
               Аутсорсинг бизнес-процессов
             </Link>
           ),
-        },
-        {
-          key: "insurance",
-          icon: <SafetyCertificateOutlined />,
-          label: (
-            <Link to="/services#insurance" onClick={() => setVisible(false)}>
-              Страхование
-            </Link>
-          ),
-        },
-        {
-          key: "hr",
-          icon: <UserAddOutlined />,
-          label: (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                width: "100%",
-                padding: "8px 0",
-                color: "#8a9aa4",
-              }}
-            >
-              <span>Подбор персонала</span>
-              <Badge
-                count="01.01.2026"
-                style={{
-                  backgroundColor: "#b9ebd7",
-                  color: "#14a36b",
-                  fontSize: "10px",
-                  padding: "0 6px",
-                  height: "18px",
-                  lineHeight: "18px",
-                }}
-              />
-            </div>
-          ),
-          disabled: true,
         },
       ],
     },
@@ -317,10 +236,7 @@ const Header = ({ isTransparent }) => {
           onClick={() => navigate("/")}
           style={{ cursor: "pointer" }}
         >
-          <div className="logo-text">
-            <span className="logo-main">ЦЕНТР БУХГАЛТЕРСКИХ УСЛУГ</span>
-            <span className="logo-sub">КЕЙС КОНСАЛТИНГ</span>
-          </div>
+          <img src={logo} className="logo-image" />
         </div>
 
         {/* Десктопное меню */}
@@ -343,9 +259,9 @@ const Header = ({ isTransparent }) => {
           </div>
 
           <div className="header-actions">
-            <a href="tel:+78001234567" className="phone-link">
+            <a href="tel:+79301208782" className="phone-link">
               <PhoneOutlined />
-              <span>8 (800) 123-45-67</span>
+              <span>+7 (930) 120-87-82</span>
             </a>
           </div>
         </div>
@@ -367,43 +283,12 @@ const Header = ({ isTransparent }) => {
           />
 
           <Drawer
-            title={
-              <div
-                className="drawer-logo"
-                onClick={() => {
-                  navigate("/");
-                  onClose();
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                <div
-                  style={{
-                    fontWeight: "700",
-                    color: "#19be7d",
-                    fontSize: "16px",
-                    lineHeight: "1.2",
-                  }}
-                >
-                  ЦЕНТР БУХГАЛТЕРСКИХ УСЛУГ
-                </div>
-                <div
-                  style={{
-                    fontSize: "12px",
-                    color: "#14a36b",
-                    marginTop: "2px",
-                  }}
-                >
-                  КЕЙС КОНСАЛТИНГ
-                </div>
-              </div>
-            }
             closable={false}
             onClose={onClose}
             open={visible}
             styles={{
               header: {
                 borderBottom: "1px solid #e6e9ec",
-                padding: "20px",
               },
               body: {
                 padding: "0",
@@ -442,14 +327,14 @@ const Header = ({ isTransparent }) => {
               <div className="mobile-contact">
                 <PhoneOutlined style={{ color: "#19be7d" }} />
                 <a
-                  href="tel:+78001234567"
+                  href="tel:+79301208782"
                   style={{
                     marginLeft: "12px",
                     color: "#19be7d",
                     fontWeight: "600",
                   }}
                 >
-                  8 (800) 123-45-67
+                  +7 (930) 120-87-82
                 </a>
               </div>
               <Button
