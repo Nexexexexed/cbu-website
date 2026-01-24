@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
+import ServicesPage from "./pages/ServicesPage"
 import HomePage from "./pages/HomePage";
-import ServicesPage from "./pages/ServicesPage";
 import AboutPage from "./pages/AboutPage";
 import ContactsPage from "./pages/ContactsPage";
 import PricingPage from "./pages/PricingPage";
-import { Layout, Row, Col, Typography, Divider } from "antd";
-import {
-  EnvironmentOutlined,
-  PhoneOutlined,
-  MailOutlined,
-  ClockCircleOutlined,
-} from "@ant-design/icons";
+import AccountingPage from "./pages/services/AccountingPage";
+import LegalPage from "./pages/services/LegalPage";
+import ManagementPage from "./pages/services/ManagementPage";
+import OutsourcingPage from "./pages/services/OutsourcingPage";
+import { Layout, Typography } from "antd";
 
 const { Content, Footer } = Layout;
-const { Text, Title, Link } = Typography;
+const { Text } = Typography;
 
 function App() {
   const [isHeaderTransparent, setIsHeaderTransparent] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
+    // Если мы не на главной странице, то хедер всегда непрозрачный
+    if (location.pathname !== "/") {
+      setIsHeaderTransparent(false);
+      return;
+    }
+
+    // Только на главной странице делаем логику прозрачности при скролле
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
 
@@ -33,45 +39,26 @@ function App() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [location.pathname]);
 
-  // Данные для футера - адаптированы под ваш сайт
   const footerData = {
-    companyName: "КЕЙС КОНСАЛТИНГ",
-    tagline: "ЦЕНТР БУХГАЛТЕРСКИХ УСЛУГ",
-    services: [
-      "Бухгалтерское обслуживание",
-      "Юридическое сопровождение",
-      "Управленческая отчетность",
-      "Аутсорсинг бизнес-процессов",
-      "Страхование",
-      "Подбор персонала (с 01.01.2026)",
-    ],
-    info: [
-      "О нас",
-      "Кейсы",
-      "Цены",
-      "Контакты",
-      "Отзывы клиентов",
-      "Политика конфиденциальности",
-    ],
-    contact: {
-      phone: "8 (800) 123-45-67",
-      address: "Москва, ул. Примерная, д. 10, офис 25",
-      email: "info@case-consulting.ru",
-      hours: "Пн-Пт: 9:00-18:00",
-    },
     copyright: `© ИП «КЕЙС КОНСАЛТИНГ», ${new Date().getFullYear()}`,
   };
 
   return (
     <Layout className="app-layout">
       <Header isTransparent={isHeaderTransparent} />
-
       <Content>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/services" element={<ServicesPage />} />
+          
+          {/* Отдельные страницы сервисов */}
+          <Route path="/services/accounting" element={<AccountingPage />} />
+          <Route path="/services/legal" element={<LegalPage />} />
+          <Route path="/services/management" element={<ManagementPage />} />
+          <Route path="/services/outsourcing" element={<OutsourcingPage />} />
+          
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contacts" element={<ContactsPage />} />
           <Route path="/pricing" element={<PricingPage />} />

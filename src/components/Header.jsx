@@ -1,22 +1,22 @@
 import { useState } from "react";
-import { Menu, Button, Drawer, Dropdown, Badge, ConfigProvider } from "antd";
+import { Menu, Button, Drawer, Dropdown, ConfigProvider } from "antd";
 import {
   MenuOutlined,
   PhoneOutlined,
   AppstoreOutlined,
   TeamOutlined,
-  DollarOutlined,
   ContactsOutlined,
   CalculatorOutlined,
   SafetyCertificateOutlined,
   BarChartOutlined,
-  SolutionOutlined,
   CaretDownOutlined,
+  BuildOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 
 import logo from "../assets/images/logo.svg";
+import rubelIcon from "../assets/images/ruble.svg";
 
 const Header = ({ isTransparent }) => {
   const [visible, setVisible] = useState(false);
@@ -29,25 +29,23 @@ const Header = ({ isTransparent }) => {
         key: "accounting",
         icon: <CalculatorOutlined />,
         label: (
-          <Link to="/services#accounting">Бухгалтерское обслуживание</Link>
+          <Link to="/services/accounting">Бухгалтерское обслуживание</Link>
         ),
       },
       {
         key: "legal",
         icon: <SafetyCertificateOutlined />,
-        label: <Link to="/services#legal">Юридическое сопровождение</Link>,
+        label: <Link to="/services/legal">Юридическое сопровождение</Link>,
       },
       {
         key: "management",
         icon: <BarChartOutlined />,
-        label: <Link to="/services#management">Управленческая отчетность</Link>,
+        label: <Link to="/services/management">Управленческая отчетность</Link>,
       },
       {
         key: "outsourcing",
-        icon: <SolutionOutlined />,
-        label: (
-          <Link to="/services#outsourcing">Аутсорсинг бизнес-процессов</Link>
-        ),
+        icon: <BuildOutlined />,
+        label: <Link to="/services/outsourcing">Аутсорсинг бизнес-процессов</Link>,
       },
     ],
   };
@@ -102,7 +100,16 @@ const Header = ({ isTransparent }) => {
       key: "pricing",
       label: (
         <Link to="/pricing" className="menu-link-wrapper">
-          <DollarOutlined style={{ marginRight: "8px" }} />
+          <img 
+            src={rubelIcon} 
+            alt="Рубли" 
+            style={{ 
+              width: "16px", 
+              height: "16px", 
+              marginRight: "8px",
+              filter: "brightness(0) invert(1)" 
+            }} 
+          />
           <span>Цены</span>
           <span className="menu-item-underline"></span>
         </Link>
@@ -131,7 +138,7 @@ const Header = ({ isTransparent }) => {
           key: "accounting",
           icon: <CalculatorOutlined />,
           label: (
-            <Link to="/services#accounting" onClick={() => setVisible(false)}>
+            <Link to="/services/accounting" onClick={() => setVisible(false)}>
               Бухгалтерское обслуживание
             </Link>
           ),
@@ -140,7 +147,7 @@ const Header = ({ isTransparent }) => {
           key: "legal",
           icon: <SafetyCertificateOutlined />,
           label: (
-            <Link to="/services#legal" onClick={() => setVisible(false)}>
+            <Link to="/services/legal" onClick={() => setVisible(false)}>
               Юридическое сопровождение
             </Link>
           ),
@@ -149,16 +156,16 @@ const Header = ({ isTransparent }) => {
           key: "management",
           icon: <BarChartOutlined />,
           label: (
-            <Link to="/services#management" onClick={() => setVisible(false)}>
+            <Link to="/services/management" onClick={() => setVisible(false)}>
               Управленческая отчетность
             </Link>
           ),
         },
         {
           key: "outsourcing",
-          icon: <SolutionOutlined />,
+          icon: <BuildOutlined />,
           label: (
-            <Link to="/services#outsourcing" onClick={() => setVisible(false)}>
+            <Link to="/services/outsourcing" onClick={() => setVisible(false)}>
               Аутсорсинг бизнес-процессов
             </Link>
           ),
@@ -175,17 +182,12 @@ const Header = ({ isTransparent }) => {
       ),
     },
     {
-      key: "cases",
-      icon: <SolutionOutlined />,
-      label: (
-        <Link to="/cases" onClick={() => setVisible(false)}>
-          Кейсы
-        </Link>
-      ),
-    },
-    {
       key: "pricing",
-      icon: <DollarOutlined />,
+      icon: <img 
+        src={rubelIcon} 
+        alt="Рубли" 
+        style={{ width: "16px", height: "16px" }} 
+      />,
       label: (
         <Link to="/pricing" onClick={() => setVisible(false)}>
           Цены
@@ -236,7 +238,7 @@ const Header = ({ isTransparent }) => {
           onClick={() => navigate("/")}
           style={{ cursor: "pointer" }}
         >
-          <img src={logo} className="logo-image" />
+          <img src={logo} className="logo-image" alt="КЕЙС КОНСАЛТИНГ" />
         </div>
 
         {/* Десктопное меню */}

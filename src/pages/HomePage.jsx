@@ -20,7 +20,6 @@ import {
   TeamOutlined,
   BarChartOutlined,
   PhoneOutlined,
-  DollarOutlined,
   AuditOutlined,
   UserSwitchOutlined,
   ArrowRightOutlined,
@@ -36,6 +35,9 @@ import {
   PlusOutlined,
   MinusOutlined,
   RocketOutlined,
+  SafetyOutlined,
+  SearchOutlined,
+  FileSearchOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
@@ -83,7 +85,7 @@ const HomePage = () => {
     {
       title: "Предложение",
       icon: <FileTextOutlined />,
-      content: "Готовим коммерческое предложение,согласовываем все детали",
+      content: "Готовим коммерческое предложение, согласовываем все детали",
     },
     {
       title: "Подключение",
@@ -124,23 +126,27 @@ const HomePage = () => {
     {
       icon: <TeamOutlined />,
       title: "Команда экспертов",
-      desc: "Дипломированные и аттестованные специалисты с опытом более 20 лет. ",
+      desc: "Дипломированные и аттестованные специалисты с опытом более 20 лет.",
+      color: "#19be7d",
     },
     {
       icon: <GlobalOutlined />,
       title: "Работаем по всей России",
       desc: "Обслуживаем клиентов в любом регионе РФ",
+      color: "#19be7d",
     },
     {
-      icon: <DollarOutlined />,
+      icon:<FileSearchOutlined />,
       title: "Прозрачные тарифы",
       desc: "Фиксированная стоимость без скрытых платежей",
+      color: "#19be7d",
     },
   ];
 
-  // Услуги с детальным описанием
+  // Услуги с детальным описанием (без аутсорсинга, только 3 услуги)
   const services = [
     {
+      id: "accounting",
       title: "Бухгалтерское обслуживание",
       icon: <CalculatorOutlined />,
       description: "Полный комплекс бухгалтерских услуг для вашего бизнеса",
@@ -157,6 +163,7 @@ const HomePage = () => {
         "Возьмем на себя ведение бухгалтерского и налогового учета вашей компании, рассчитаем зарплату, заведем кадровый учет, сдадим отчетность",
     },
     {
+      id: "legal",
       title: "Юридическое сопровождение",
       icon: <FileTextOutlined />,
       description: "Правовая защита и консультации для вашего бизнеса",
@@ -173,6 +180,7 @@ const HomePage = () => {
         "Зарегистрируем новый бизнес, внесем изменения, составим договор, возьмем на себя претензионно-исковую работу, представим интересы в суде",
     },
     {
+      id: "management",
       title: "Управленческая отчетность",
       icon: <BarChartOutlined />,
       description: "Финансовый анализ и стратегическое планирование",
@@ -188,19 +196,34 @@ const HomePage = () => {
       fullDescription:
         "Посчитаем доходы и расходы, составим бюджет, спрогнозируем и устраним кассовые разрывы, подсветим неэффективные процессы",
     },
+  ];
+
+  // Аутсорсинг бизнес-процессов - 5 подсекций
+  const outsourcingServices = [
     {
-      title: "Аутсорсинг бизнес-процессов",
-      icon: <UserSwitchOutlined />,
-      description: "Передача непрофильных функций на обслуживание",
-      features: [
-        "Подбор персонала",
-        "Кадровое делопроизводство",
-        "Организация документооборота и архива",
-        "Все виды страхования",
-      ],
-      buttonText: "Смотреть",
-      fullDescription:
-        "Передавая часть своих бизнес-задач к нам, вы можете быть уверены в экспертном решении каждого вопроса",
+      title: "Бухгалтерское обслуживание",
+      icon: <CalculatorOutlined />,
+      description: "Полный комплекс бухгалтерских и налоговых услуг",
+    },
+    {
+      title: "Юридическое сопровождение",
+      icon: <FileTextOutlined />,
+      description: "Регистрация бизнеса, договоры, судебная защита",
+    },
+    {
+      title: "Управленческая отчетность",
+      icon: <BarChartOutlined />,
+      description: "Финансовый анализ, бюджетирование, планирование",
+    },
+    {
+      title: "Страхование",
+      icon: <SafetyOutlined />,
+      description: "Все виды страхования для бизнеса и сотрудников",
+    },
+    {
+      title: "Поиск и подбор персонала",
+      icon: <SearchOutlined />,
+      description: "Полный цикл подбора и оценки кандидатов",
     },
   ];
 
@@ -212,7 +235,6 @@ const HomePage = () => {
   const handleOk = () => {
     form.validateFields().then((values) => {
       console.log("Form values:", values);
-      // Здесь обычно отправка данных на сервер
       Modal.success({
         title: "Заявка успешно отправлена!",
         content: "Наш менеджер свяжется с вами",
@@ -382,10 +404,312 @@ const HomePage = () => {
         </Motion.div>
       </Motion.section>
 
+      {/* НОВЫЙ БЛОК: Аутсорсинг бизнес-процессов */}
+      <Motion.section
+        style={{
+          padding: "80px 20px",
+          backgroundColor: "#ffffff",
+        }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <Motion.div
+            style={{ textAlign: "center", marginBottom: "40px" }}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            <Title level={2} style={{ color: "#000000", marginBottom: "16px" }}>
+              Аутсорсинг бизнес-процессов
+            </Title>
+            <Paragraph
+              style={{
+                fontSize: "20px",
+                color: "white",
+                maxWidth: "700px",
+                margin: "0 auto",
+                backgroundColor: "rgb(25, 190, 125)",
+                padding: "25px 10px",
+                borderRadius: "16px",
+              }}
+            >
+              Передавайте непрофильные функции на обслуживание профессионалам и
+              сосредоточьтесь на развитии бизнеса
+            </Paragraph>
+          </Motion.div>
+
+          <Motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            <Row gutter={[24, 24]} justify="center" align="stretch">
+              {outsourcingServices.map((service, index) => (
+                <Col xs={24} sm={12} md={8} lg={6} key={index}>
+                  <Motion.div
+                    variants={fadeInUp}
+                    whileHover={{
+                      scale: 1.05,
+                      boxShadow: "0 10px 30px rgba(25, 190, 125, 0.1)",
+                      transition: { duration: 0.3 },
+                    }}
+                    style={{ height: "100%" }}
+                  >
+                    <Card
+                      hoverable
+                      style={{
+                        borderRadius: "12px",
+                        border: "1px solid #f0f0f0",
+                        textAlign: "center",
+                        height: "100%",
+                        padding: "32px 16px",
+                        transition: "all 0.3s ease",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                      bodyStyle={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        height: "100%",
+                        width: "100%",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "64px",
+                          height: "64px",
+                          borderRadius: "12px",
+                          backgroundColor: "#f0faf5",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginBottom: "24px",
+                          border: "2px solid #19be7d40",
+                        }}
+                      >
+                        <div style={{ fontSize: "32px", color: "#19be7d" }}>
+                          {service.icon}
+                        </div>
+                      </div>
+
+                      <Title
+                        level={4}
+                        style={{
+                          marginBottom: "16px",
+                          color: "#000000",
+                          fontSize: "18px",
+                          textAlign: "center",
+                        }}
+                      >
+                        {service.title}
+                      </Title>
+                      <Paragraph
+                        style={{
+                          color: "#55646e",
+                          margin: 0,
+                          fontSize: "14px",
+                          lineHeight: 1.5,
+                          textAlign: "center",
+                        }}
+                      >
+                        {service.description}
+                      </Paragraph>
+                    </Card>
+                  </Motion.div>
+                </Col>
+              ))}
+            </Row>
+          </Motion.div>
+        </div>
+      </Motion.section>
+
+      {/* Секция услуг с детальным описанием (3 услуги) */}
+      <Motion.section
+        style={{
+          padding: "80px 20px",
+          backgroundColor: "#f8f9fa",
+        }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <Motion.div
+            style={{ textAlign: "center", marginBottom: "60px" }}
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            <Title
+              level={2}
+              style={{
+                color: "#000000",
+                marginBottom: "16px",
+              }}
+            >
+              Услуги для бизнеса
+            </Title>
+            <Paragraph
+              style={{
+                fontSize: "20px",
+                color: "white",
+                maxWidth: "700px",
+                margin: "0 auto",
+                backgroundColor: "rgb(25, 190, 125)",
+                padding: "25px 10px",
+                borderRadius: "16px",
+              }}
+            >
+              Освободите себя от рутинных задач и переключите свое внимание на
+              рост и развитие вашего бизнеса
+            </Paragraph>
+          </Motion.div>
+
+          <Motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+          >
+            <Row gutter={[32, 32]} justify="center">
+              {services.map((service, index) => (
+                <Col xs={24} md={8} key={index}>
+                  <Motion.div
+                    variants={fadeInUp}
+                    whileHover={cardHoverAnimation}
+                    style={{ height: "100%" }}
+                  >
+                    <Card
+                      hoverable
+                      style={{
+                        borderRadius: "16px",
+                        border: "1px solid #e6e9ec",
+                        backgroundColor: "#ffffff",
+                        height: "100%",
+                        transition: "all 0.3s ease",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                      bodyStyle={{
+                        padding: "40px",
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "flex-start",
+                          flex: 1,
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "24px",
+                            marginBottom: "32px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              width: "64px",
+                              height: "64px",
+                              borderRadius: "12px",
+                              backgroundColor: "#f0faf5",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                              border: `2px solid #19be7d40`,
+                            }}
+                          >
+                            <div style={{ fontSize: "32px", color: "#19be7d" }}>
+                              {service.icon}
+                            </div>
+                          </div>
+
+                          <div style={{ flex: 1 }}>
+                            <Title
+                              level={3}
+                              style={{ color: "#000000", marginBottom: "12px" }}
+                            >
+                              {service.title}
+                            </Title>
+                          </div>
+                        </div>
+
+                        <div style={{ marginBottom: "32px", flex: 1 }}>
+                          {service.features.map((feature, idx) => (
+                            <div
+                              key={idx}
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                marginBottom: "12px",
+                                color: "#000000",
+                              }}
+                            >
+                              <CheckOutlined
+                                style={{
+                                  color: "#19be7d",
+                                  marginRight: "12px",
+                                  fontSize: "14px",
+                                }}
+                              />
+                              <span style={{ fontSize: "14px" }}>
+                                {feature}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <Button
+                          type="primary"
+                          style={{
+                            backgroundColor: "#19be7d",
+                            borderColor: "#19be7d",
+                            borderRadius: "8px",
+                            fontWeight: 600,
+                            width: "100%",
+                            marginTop: "auto",
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = "#14a36b";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = "#19be7d";
+                          }}
+                          onClick={() => navigate(`/services/${service.id}`)}
+                          icon={<ArrowRightOutlined />}
+                        >
+                          {service.buttonText}
+                        </Button>
+                      </div>
+                    </Card>
+                  </Motion.div>
+                </Col>
+              ))}
+            </Row>
+          </Motion.div>
+        </div>
+      </Motion.section>
+
       {/* Секция "Как это работает" */}
       <Motion.section
         style={{
-          padding: "100px 20px",
+          padding: "80px 20px",
           backgroundColor: "#ffffff",
         }}
         initial={{ opacity: 0 }}
@@ -438,11 +762,14 @@ const HomePage = () => {
                         border: "2px solid #f0f0f0",
                         textAlign: "center",
                         height: "100%",
-                        minHeight: "320px",
                         padding: "32px 24px",
                         transition: "all 0.3s ease",
                       }}
-                      styles={{ padding: 0 }}
+                      bodyStyle={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
                     >
                       <div
                         style={{
@@ -453,7 +780,7 @@ const HomePage = () => {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          margin: "0 auto 24px",
+                          marginBottom: "24px",
                           border: `2px solid #19be7d`,
                         }}
                       >
@@ -472,7 +799,7 @@ const HomePage = () => {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          margin: "0 auto 16px",
+                          marginBottom: "16px",
                           fontWeight: "bold",
                           fontSize: "18px",
                         }}
@@ -523,190 +850,10 @@ const HomePage = () => {
         </div>
       </Motion.section>
 
-      {/* Секция услуг с детальным описанием */}
-      <Motion.section
-        style={{
-          padding: "50px 20px",
-          backgroundColor: "#f8f9fa",
-        }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <Motion.div
-            style={{ textAlign: "center", marginBottom: "40px" }}
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            <Title
-              level={2}
-              style={{
-                color: "#000000",
-                marginBottom: "16px",
-              }}
-            >
-              Услуги для бизнеса
-            </Title>
-            <Paragraph
-              style={{
-                fontSize: "20px",
-                color: "white",
-                maxWidth: "700px",
-                margin: "0 auto",
-                backgroundColor: "rgb(25, 190, 125)",
-                padding: "25px 10px",
-                borderRadius: "16px",
-              }}
-            >
-              Освободите себя от рутинных задач и переключите свое внимание на
-              рост и развитие вашего бизнеса
-            </Paragraph>
-          </Motion.div>
-
-          <Motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            <Row gutter={[32, 32]}>
-              {services.map((service, index) => (
-                <Col xs={24} md={12} key={index}>
-                  <Motion.div
-                    variants={fadeInUp}
-                    whileHover={cardHoverAnimation}
-                  >
-                    <Card
-                      hoverable
-                      style={{
-                        borderRadius: "16px",
-                        border: "1px solid #e6e9ec",
-                        backgroundColor: "#ffffff",
-                        height: "100%",
-                        minHeight: "550px",
-                        transition: "all 0.3s ease",
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                      styles={{
-                        padding: "40px",
-                        flex: 1,
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "24px",
-                          flex: 1,
-                          flexDirection: "column",
-                        }}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "flex-start",
-                            gap: "24px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: "64px",
-                              height: "64px",
-                              borderRadius: "12px",
-                              backgroundColor: "#f0faf5",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              flexShrink: 0,
-                              border: `2px solid #19be7d40`,
-                            }}
-                          >
-                            <div style={{ fontSize: "32px", color: "#19be7d" }}>
-                              {service.icon}
-                            </div>
-                          </div>
-
-                          <div style={{ flex: 1 }}>
-                            <Title
-                              level={3}
-                              style={{ color: "#000000", marginBottom: "12px" }}
-                            >
-                              {service.title}
-                            </Title>
-                            <Paragraph
-                              style={{ color: "#55646e", marginBottom: "20px" }}
-                            >
-                              {service.fullDescription}
-                            </Paragraph>
-                          </div>
-                        </div>
-
-                        <div style={{ marginBottom: "24px", flex: 1 }}>
-                          {service.features.map((feature, idx) => (
-                            <div
-                              key={idx}
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                marginBottom: "12px",
-                                color: "#000000",
-                              }}
-                            >
-                              <CheckOutlined
-                                style={{
-                                  color: "#19be7d", // Убрано service.color
-                                  marginRight: "12px",
-                                  fontSize: "14px",
-                                }}
-                              />
-                              <span style={{ fontSize: "14px" }}>
-                                {feature}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <Button
-                          type="primary"
-                          style={{
-                            backgroundColor: "#19be7d",
-                            borderColor: "#19be7d",
-                            borderRadius: "8px",
-                            fontWeight: 600,
-                            width: "100%",
-                            flexShrink: 0,
-                          }}
-                          onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = "#14a36b";
-                          }}
-                          onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = "#19be7d";
-                          }}
-                          onClick={() => navigate("/services")}
-                          icon={<ArrowRightOutlined />}
-                        >
-                          {service.buttonText}
-                        </Button>
-                      </div>
-                    </Card>
-                  </Motion.div>
-                </Col>
-              ))}
-            </Row>
-          </Motion.div>
-        </div>
-      </Motion.section>
-
       {/* Секция "Почему выбирают нас" */}
       <Motion.section
         style={{
-          padding: "50px 20px",
+          padding: "80px 20px",
           backgroundColor: "#ffffff",
         }}
         initial={{ opacity: 0 }}
@@ -715,7 +862,7 @@ const HomePage = () => {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Motion.div
-            style={{ textAlign: "center", marginBottom: "40px" }}
+            style={{ textAlign: "center", marginBottom: "60px" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
@@ -746,12 +893,13 @@ const HomePage = () => {
             whileInView="animate"
             viewport={{ once: true }}
           >
-            <Row gutter={[32, 32]}>
+            <Row gutter={[32, 32]} justify="center">
               {advantages.map((advantage, index) => (
                 <Col xs={24} sm={12} lg={8} key={index}>
                   <Motion.div
                     variants={fadeInUp}
                     whileHover={cardHoverAnimation}
+                    style={{ height: "100%" }}
                   >
                     <Card
                       hoverable
@@ -760,10 +908,15 @@ const HomePage = () => {
                         border: "1px solid #e6e9ec",
                         backgroundColor: "#ffffff",
                         height: "100%",
-                        minHeight: "250px",
                         transition: "all 0.3s ease",
                       }}
-                      styles={{ padding: "32px" }}
+                      bodyStyle={{
+                        padding: "32px",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        textAlign: "center",
+                      }}
                     >
                       <div
                         style={{
@@ -778,11 +931,15 @@ const HomePage = () => {
                           border: `2px solid ${advantage.color}40`,
                         }}
                       >
-                        <div
-                          style={{ fontSize: "28px", color: advantage.color }}
-                        >
-                          {advantage.icon}
-                        </div>
+                        {typeof advantage.icon === "object" && 
+                        advantage.icon.type && 
+                        advantage.icon.type.name !== "img" ? (
+                          <div style={{ fontSize: "28px", color: advantage.color }}>
+                            {advantage.icon}
+                          </div>
+                        ) : (
+                          advantage.icon
+                        )}
                       </div>
 
                       <Title
@@ -1121,7 +1278,7 @@ const HomePage = () => {
                 boxShadow: "0 20px 60px rgba(0, 0, 0, 0.15)",
                 border: "none",
               }}
-              styles={{ padding: 0 }}
+              bodyStyle={{ padding: 0 }}
             >
               <div style={{ textAlign: "center", marginBottom: "32px" }}>
                 <Title
