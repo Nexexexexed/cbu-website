@@ -12,7 +12,6 @@ import {
   BarChartOutlined,
   PhoneOutlined,
   CheckOutlined,
-  ArrowLeftOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
@@ -23,6 +22,86 @@ const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6 },
+};
+
+// Кастомная кнопка для CTA секции
+const CustomCTAButton = ({ 
+  children, 
+  onClick, 
+  variant = "primary", 
+  icon, 
+  style = {} 
+}) => {
+  const serviceColor = "#722ed1";
+  
+  const baseStyles = {
+    height: "56px",
+    padding: "0 40px",
+    fontWeight: 600,
+    fontSize: "16px",
+    borderRadius: "8px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+    cursor: "pointer",
+    border: "none",
+    outline: "none",
+    transition: "all 0.3s ease",
+    position: "relative",
+    overflow: "hidden",
+  };
+
+  const primaryStyles = {
+    ...baseStyles,
+    backgroundColor: "white",
+    color: serviceColor,
+    border: `2px solid white`,
+  };
+
+  const secondaryStyles = {
+    ...baseStyles,
+    backgroundColor: "transparent",
+    color: "white",
+    border: `2px solid white`,
+  };
+
+  const hoverStyles = {
+    primary: {
+      backgroundColor: "#531dab",
+      borderColor: "#531dab",
+      color: "white",
+      transform: "translateY(-2px)",
+      boxShadow: `0 8px 25px rgba(83, 29, 171, 0.3)`,
+    },
+    secondary: {
+      backgroundColor: "white",
+      borderColor: "white",
+      color: serviceColor,
+      transform: "translateY(-2px)",
+      boxShadow: `0 8px 25px rgba(255, 255, 255, 0.2)`,
+    },
+  };
+
+  const buttonStyles = variant === "primary" ? primaryStyles : secondaryStyles;
+
+  return (
+    <Motion.button
+      style={{ ...buttonStyles, ...style }}
+      whileHover={hoverStyles[variant]}
+      whileTap={{ scale: 0.98 }}
+      onClick={onClick}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-2px)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+      }}
+    >
+      {icon}
+      {children}
+    </Motion.button>
+  );
 };
 
 const ManagementPage = () => {
@@ -86,7 +165,7 @@ const ManagementPage = () => {
   return (
     <div style={{ padding: "40px 20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-      <div style={{height:"60px"}}></div>
+        <div style={{height:"60px"}}></div>
 
         <Card
           style={{
@@ -267,6 +346,7 @@ const ManagementPage = () => {
               </div>
             </Motion.div>
 
+            {/* CTA Section */}
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
               <div
                 style={{
@@ -276,51 +356,72 @@ const ManagementPage = () => {
                   textAlign: "center",
                   marginTop: "60px",
                   color: "white",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
-                <Title level={2} style={{ color: "white", marginBottom: "20px" }}>
-                  Хотите видеть реальную картину бизнеса?
-                </Title>
+                {/* Декоративные элементы */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "-50px",
+                    right: "-50px",
+                    width: "150px",
+                    height: "150px",
+                    borderRadius: "50%",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "-30px",
+                    left: "-30px",
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  }}
+                />
                 
-                <Paragraph style={{ fontSize: "18px", marginBottom: "40px", opacity: 0.9 }}>
-                  Внедрите управленческий учет и получите полный контроль над финансами
-                </Paragraph>
-                
-                <Space size="large">
-                  <Button
-                    type="primary"
-                    size="large"
-                    style={{
-                      backgroundColor: "white",
-                      borderColor: "white",
-                      color: serviceColor,
-                      height: "56px",
-                      padding: "0 40px",
-                      fontWeight: 600,
-                      fontSize: "16px",
-                    }}
-                    onClick={() => navigate("/contacts")}
-                    icon={<PhoneOutlined />}
-                  >
-                    Получить консультацию
-                  </Button>
+                <div style={{ position: "relative", zIndex: 1 }}>
+                  <Title level={2} style={{ color: "white", marginBottom: "20px" }}>
+                    Хотите видеть реальную картину бизнеса?
+                  </Title>
                   
-                  <Button
-                    type="default"
-                    size="large"
-                    style={{
-                      backgroundColor: "transparent",
-                      borderColor: "white",
-                      color: "white",
-                      height: "56px",
-                      padding: "0 40px",
-                      fontWeight: 600,
+                  <Paragraph style={{ fontSize: "18px", marginBottom: "40px", opacity: 0.9 }}>
+                    Внедрите управленческий учет и получите полный контроль над финансами
+                  </Paragraph>
+                  
+                  <Space size="large" wrap style={{ justifyContent: "center" }}>
+                    <CustomCTAButton
+                      variant="primary"
+                      onClick={() => navigate("/contacts")}
+                      icon={<PhoneOutlined />}
+                    >
+                      Получить консультацию
+                    </CustomCTAButton>
+                    
+                    <CustomCTAButton
+                      variant="secondary"
+                      onClick={() => navigate("/pricing")}
+                    >
+                      Узнать цены
+                    </CustomCTAButton>
+                  </Space>
+                  
+                  {/* Дополнительный текст под кнопками */}
+                  <Paragraph 
+                    style={{ 
+                      fontSize: "14px", 
+                      marginTop: "24px", 
+                      opacity: 0.8,
+                      fontStyle: "italic"
                     }}
-                    onClick={() => navigate("/pricing")}
                   >
-                    Узнать цены
-                  </Button>
-                </Space>
+                    Первая консультация — бесплатно
+                  </Paragraph>
+                </div>
               </div>
             </Motion.div>
           </div>

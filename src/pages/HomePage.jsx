@@ -11,7 +11,6 @@ import {
   Form,
   Modal,
   Collapse,
-  Steps,
 } from "antd";
 import {
   CheckOutlined,
@@ -21,7 +20,6 @@ import {
   BarChartOutlined,
   PhoneOutlined,
   AuditOutlined,
-  UserSwitchOutlined,
   ArrowRightOutlined,
   DownCircleOutlined,
   BankOutlined,
@@ -42,10 +40,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
 
-import teamImage from "../assets/images/team-for-grow.webp";
+import teamImage from "../assets/images/hero_photo.jpg";
 
 const { Title, Paragraph, Text } = Typography;
-const { Step } = Steps;
 const { Panel } = Collapse;
 const { TextArea } = Input;
 
@@ -136,7 +133,7 @@ const HomePage = () => {
       color: "#19be7d",
     },
     {
-      icon:<FileSearchOutlined />,
+      icon: <FileSearchOutlined />,
       title: "Прозрачные тарифы",
       desc: "Фиксированная стоимость без скрытых платежей",
       color: "#19be7d",
@@ -255,6 +252,11 @@ const HomePage = () => {
     transition: { duration: 0.3 },
   };
 
+  // Обработчик клика по блоку "Аутсорсинг бизнес-процессов"
+  const handleOutsourcingClick = () => {
+    navigate("/services/outsourcing");
+  };
+
   return (
     <div className="home-page">
       {/* Герой-секция */}
@@ -287,28 +289,30 @@ const HomePage = () => {
           style={{
             maxWidth: "1000px",
             position: "relative",
+            marginTop:"125px",
             zIndex: 2,
           }}
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <Paragraph
-            style={{
-              color: "white",
-              fontSize: "1.3rem",
-              margin: "0 auto 40px",
-              lineHeight: 1.6,
-              maxWidth: "700px",
-              opacity: 0.9,
-            }}
-          >
-            Освободите себя от рутинных задач и переключите внимание на рост и
-            развитие бизнеса. Профессиональный аутсорсинг бухгалтерии,
-            юриспруденции и управления.
-          </Paragraph>
+          <div style={{ marginBottom: "24px" }}>
+            <Title
+              style={{
+                color: "white",
+                fontSize: "3.0rem",
+                marginBottom: "24px",
+                fontWeight: 800,
+                lineHeight: 1.2,
+              }}
+            >
+              КОМПЛЕКСНОЕ СОПРОВОЖДЕНИЕ
+              <br />
+              <span style={{ color: "#19be7d" }}>ВАШЕГО БИЗНЕСА</span>
+            </Title>
+          </div>
 
-          <Space size="large" style={{ marginTop: "40px" }}>
+          <Space size="large">
             <Motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 type="primary"
@@ -337,7 +341,7 @@ const HomePage = () => {
               display: "flex",
               justifyContent: "center",
               gap: "40px",
-              marginTop: "60px",
+              marginTop: "20px",
               flexWrap: "wrap",
             }}
             variants={staggerContainer}
@@ -425,7 +429,11 @@ const HomePage = () => {
             <Title level={2} style={{ color: "#000000", marginBottom: "16px" }}>
               Аутсорсинг бизнес-процессов
             </Title>
-            <Paragraph
+            {/* Кликабельный текст */}
+            <Motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleOutsourcingClick}
               style={{
                 fontSize: "20px",
                 color: "white",
@@ -434,13 +442,43 @@ const HomePage = () => {
                 backgroundColor: "rgb(25, 190, 125)",
                 padding: "25px 10px",
                 borderRadius: "16px",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              Передавайте непрофильные функции на обслуживание профессионалам и
-              сосредоточьтесь на развитии бизнеса
-            </Paragraph>
+              <div
+                style={{
+                  position: "relative",
+                  zIndex: 1,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
+                <span>Передавайте непрофильные функции на обслуживание профессионалам и сосредоточьтесь на развитии бизнеса</span>
+                <ArrowRightOutlined />
+              </div>
+              {/* Эффект при наведении */}
+              <Motion.div
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  opacity: 0,
+                }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+            </Motion.div>
           </Motion.div>
 
+          {/* Блоки с сервисами - неактивные, в один ряд */}
           <Motion.div
             variants={staggerContainer}
             initial="initial"
@@ -449,29 +487,28 @@ const HomePage = () => {
           >
             <Row gutter={[24, 24]} justify="center" align="stretch">
               {outsourcingServices.map((service, index) => (
-                <Col xs={24} sm={12} md={8} lg={6} key={index}>
+                <Col xs={24} sm={12} md={8} lg={4.8} key={index}>
                   <Motion.div
                     variants={fadeInUp}
                     whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 10px 30px rgba(25, 190, 125, 0.1)",
+                      scale: 1.03,
                       transition: { duration: 0.3 },
                     }}
-                    style={{ height: "100%" }}
+                    style={{ height: "100%", opacity: 0.7 }} // Неактивный вид
                   >
                     <Card
-                      hoverable
                       style={{
                         borderRadius: "12px",
                         border: "1px solid #f0f0f0",
                         textAlign: "center",
                         height: "100%",
-                        padding: "32px 16px",
+                        padding: "24px 12px",
                         transition: "all 0.3s ease",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
+                        backgroundColor: "#f9f9f9", // Светлый фон для неактивного состояния
                       }}
                       bodyStyle={{
                         display: "flex",
@@ -481,21 +518,22 @@ const HomePage = () => {
                         height: "100%",
                         width: "100%",
                       }}
+                      hoverable={false} // Отключаем hover эффект
                     >
                       <div
                         style={{
-                          width: "64px",
-                          height: "64px",
+                          width: "56px",
+                          height: "56px",
                           borderRadius: "12px",
-                          backgroundColor: "#f0faf5",
+                          backgroundColor: "#f0f0f0", // Более светлый фон для иконки
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          marginBottom: "24px",
-                          border: "2px solid #19be7d40",
+                          marginBottom: "20px",
+                          border: "2px solid #d9d9d9", // Серая рамка
                         }}
                       >
-                        <div style={{ fontSize: "32px", color: "#19be7d" }}>
+                        <div style={{ fontSize: "28px", color: "#8c8c8c" }}> {/* Серый цвет иконки */}
                           {service.icon}
                         </div>
                       </div>
@@ -503,9 +541,9 @@ const HomePage = () => {
                       <Title
                         level={4}
                         style={{
-                          marginBottom: "16px",
-                          color: "#000000",
-                          fontSize: "18px",
+                          marginBottom: "12px",
+                          color: "#595959", // Более темный серый цвет
+                          fontSize: "16px",
                           textAlign: "center",
                         }}
                       >
@@ -513,10 +551,10 @@ const HomePage = () => {
                       </Title>
                       <Paragraph
                         style={{
-                          color: "#55646e",
+                          color: "#8c8c8c",
                           margin: 0,
-                          fontSize: "14px",
-                          lineHeight: 1.5,
+                          fontSize: "13px",
+                          lineHeight: 1.4,
                           textAlign: "center",
                         }}
                       >
@@ -854,7 +892,7 @@ const HomePage = () => {
       <Motion.section
         style={{
           padding: "80px 20px",
-          backgroundColor: "#ffffff",
+          backgroundColor: "rgb(248, 249, 250)",
         }}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
