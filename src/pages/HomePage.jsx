@@ -266,7 +266,7 @@ const HomePage = () => {
           height: "100vh",
           minHeight: "700px",
           backgroundImage: `
-            linear-gradient(rgba(30, 34, 40, 0.7), rgba(30, 34, 40, 0.7)),
+            linear-gradient(rgba(30, 34, 40, 0.7), rgba(30, 34, 40, 0.25)),
             url(${teamImage})
           `,
           backgroundSize: "cover",
@@ -289,7 +289,7 @@ const HomePage = () => {
           style={{
             maxWidth: "1000px",
             position: "relative",
-            marginTop:"125px",
+            marginTop:"275px",
             zIndex: 2,
           }}
           initial={{ y: 50, opacity: 0 }}
@@ -350,7 +350,6 @@ const HomePage = () => {
           >
             {[
               { value: "20+", label: "Лет опыта" },
-              { value: "99.8%", label: "Успешных кейсов" },
               { value: "24/7", label: "Поддержка" },
             ].map((stat, index) => (
               <Motion.div
@@ -408,166 +407,7 @@ const HomePage = () => {
         </Motion.div>
       </Motion.section>
 
-      {/* НОВЫЙ БЛОК: Аутсорсинг бизнес-процессов */}
-      <Motion.section
-        style={{
-          padding: "80px 20px",
-          backgroundColor: "#ffffff",
-        }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <Motion.div
-            style={{ textAlign: "center", marginBottom: "40px" }}
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            <Title level={2} style={{ color: "#000000", marginBottom: "16px" }}>
-              Аутсорсинг бизнес-процессов
-            </Title>
-            {/* Кликабельный текст */}
-            <Motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleOutsourcingClick}
-              style={{
-                fontSize: "20px",
-                color: "white",
-                maxWidth: "700px",
-                margin: "0 auto",
-                backgroundColor: "rgb(25, 190, 125)",
-                padding: "25px 10px",
-                borderRadius: "16px",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  position: "relative",
-                  zIndex: 1,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "10px",
-                }}
-              >
-                <span>Передавайте непрофильные функции на обслуживание профессионалам и сосредоточьтесь на развитии бизнеса</span>
-                <ArrowRightOutlined />
-              </div>
-              {/* Эффект при наведении */}
-              <Motion.div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  opacity: 0,
-                }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-              />
-            </Motion.div>
-          </Motion.div>
 
-          {/* Блоки с сервисами - неактивные, в один ряд */}
-          <Motion.div
-            variants={staggerContainer}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-          >
-            <Row gutter={[24, 24]} justify="center" align="stretch">
-              {outsourcingServices.map((service, index) => (
-                <Col xs={24} sm={12} md={8} lg={4.8} key={index}>
-                  <Motion.div
-                    variants={fadeInUp}
-                    whileHover={{
-                      scale: 1.03,
-                      transition: { duration: 0.3 },
-                    }}
-                    style={{ height: "100%", opacity: 0.7 }} // Неактивный вид
-                  >
-                    <Card
-                      style={{
-                        borderRadius: "12px",
-                        border: "1px solid #f0f0f0",
-                        textAlign: "center",
-                        height: "100%",
-                        padding: "24px 12px",
-                        transition: "all 0.3s ease",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        backgroundColor: "#f9f9f9", // Светлый фон для неактивного состояния
-                      }}
-                      bodyStyle={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        height: "100%",
-                        width: "100%",
-                      }}
-                      hoverable={false} // Отключаем hover эффект
-                    >
-                      <div
-                        style={{
-                          width: "56px",
-                          height: "56px",
-                          borderRadius: "12px",
-                          backgroundColor: "#f0f0f0", // Более светлый фон для иконки
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginBottom: "20px",
-                          border: "2px solid #d9d9d9", // Серая рамка
-                        }}
-                      >
-                        <div style={{ fontSize: "28px", color: "#8c8c8c" }}> {/* Серый цвет иконки */}
-                          {service.icon}
-                        </div>
-                      </div>
-
-                      <Title
-                        level={4}
-                        style={{
-                          marginBottom: "12px",
-                          color: "#595959", // Более темный серый цвет
-                          fontSize: "16px",
-                          textAlign: "center",
-                        }}
-                      >
-                        {service.title}
-                      </Title>
-                      <Paragraph
-                        style={{
-                          color: "#8c8c8c",
-                          margin: 0,
-                          fontSize: "13px",
-                          lineHeight: 1.4,
-                          textAlign: "center",
-                        }}
-                      >
-                        {service.description}
-                      </Paragraph>
-                    </Card>
-                  </Motion.div>
-                </Col>
-              ))}
-            </Row>
-          </Motion.div>
-        </div>
-      </Motion.section>
 
       {/* Секция услуг с детальным описанием (3 услуги) */}
       <Motion.section

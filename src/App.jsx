@@ -15,6 +15,21 @@ import { Layout, Typography } from "antd";
 const { Content, Footer } = Layout;
 const { Text } = Typography;
 
+// Компонент для автоматической прокрутки вверх при смене роута
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
+  }, [pathname]);
+
+  return null;
+};
+
 function App() {
   const [isHeaderTransparent, setIsHeaderTransparent] = useState(true);
   const location = useLocation();
@@ -47,6 +62,7 @@ function App() {
 
   return (
     <Layout className="app-layout">
+      <ScrollToTop />
       <Header isTransparent={isHeaderTransparent} />
       <Content>
         <Routes>

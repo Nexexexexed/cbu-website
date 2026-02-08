@@ -38,7 +38,7 @@ const fadeInUp = {
   transition: { duration: 0.6 },
 };
 
-// Кастомная кнопка для CTA секции
+// Кастомная кнопка для CTA секции (ЗЕЛЕНАЯ)
 const CustomCTAButton = ({ 
   children, 
   onClick, 
@@ -46,7 +46,7 @@ const CustomCTAButton = ({
   icon, 
   style = {} 
 }) => {
-  const serviceColor = "#fa8c16";
+  const serviceColor = "#19be7d";
   
   const baseStyles = {
     height: "56px",
@@ -82,11 +82,11 @@ const CustomCTAButton = ({
 
   const hoverStyles = {
     primary: {
-      backgroundColor: serviceColor,
-      borderColor: serviceColor,
+      backgroundColor: "#14a36b",
+      borderColor: "#14a36b",
       color: "white",
       transform: "translateY(-2px)",
-      boxShadow: `0 8px 25px rgba(250, 140, 22, 0.3)`,
+      boxShadow: `0 8px 25px rgba(20, 163, 107, 0.3)`,
     },
     secondary: {
       backgroundColor: "white",
@@ -112,9 +112,9 @@ const CustomCTAButton = ({
   );
 };
 
-// Кастомная карточка для преимуществ
+// Кастомная карточка для преимуществ (ЗЕЛЕНАЯ)
 const CustomBenefitCard = ({ icon, title, description }) => {
-  const serviceColor = "#fa8c16";
+  const serviceColor = "#19be7d";
 
   return (
     <Motion.div
@@ -135,7 +135,7 @@ const CustomBenefitCard = ({ icon, title, description }) => {
       }}
       whileHover={{
         transform: "translateY(-5px)",
-        boxShadow: "0 15px 30px rgba(250, 140, 22, 0.1)",
+        boxShadow: "0 15px 30px rgba(25, 190, 125, 0.1)",
         border: `1px solid ${serviceColor}40`,
       }}
       transition={{ duration: 0.3 }}
@@ -167,10 +167,10 @@ const CustomBenefitCard = ({ icon, title, description }) => {
   );
 };
 
-// Кастомная карточка для услуг
+// Кастомная карточка для услуг (ЗЕЛЕНАЯ)
 const CustomServiceCard = ({ service }) => {
   const navigate = useNavigate();
-  const serviceColor = "#fa8c16";
+  const serviceColor = "#19be7d";
 
   return (
     <Motion.div
@@ -190,7 +190,7 @@ const CustomServiceCard = ({ service }) => {
       }}
       whileHover={service.available ? {
         transform: "translateY(-5px)",
-        boxShadow: "0 15px 30px rgba(250, 140, 22, 0.1)",
+        boxShadow: "0 15px 30px rgba(25, 190, 125, 0.1)",
         border: `1px solid ${serviceColor}`,
       } : {}}
       transition={{ duration: 0.3 }}
@@ -278,9 +278,9 @@ const CustomServiceCard = ({ service }) => {
   );
 };
 
-// Кастомная карточка для шагов
+// Кастомная карточка для шагов (ЗЕЛЕНАЯ)
 const CustomStepCard = ({ step, title, description, icon }) => {
-  const serviceColor = "#fa8c16";
+  const serviceColor = "#19be7d";
 
   return (
     <Motion.div
@@ -298,7 +298,7 @@ const CustomStepCard = ({ step, title, description, icon }) => {
       }}
       whileHover={{
         transform: "translateY(-5px)",
-        boxShadow: "0 15px 30px rgba(250, 140, 22, 0.1)",
+        boxShadow: "0 15px 30px rgba(25, 190, 125, 0.1)",
         border: `1px solid ${serviceColor}40`,
       }}
       transition={{ duration: 0.3 }}
@@ -351,7 +351,7 @@ const CustomStepCard = ({ step, title, description, icon }) => {
 
 const OutsourcingPage = () => {
   const navigate = useNavigate();
-  const serviceColor = "#fa8c16";
+  const serviceColor = "#19be7d"; // ЗЕЛЕНЫЙ цвет
 
   const services = [
     {
@@ -456,7 +456,7 @@ const OutsourcingPage = () => {
           {/* Hero Section */}
           <div
             style={{
-              background: `linear-gradient(135deg, ${serviceColor} 0%, #d46b08 100%)`,
+              background: `linear-gradient(135deg, ${serviceColor} 0%, #14a36b 100%)`, // ЗЕЛЕНЫЙ градиент
               padding: "60px 40px",
               textAlign: "center",
               color: "white",
@@ -489,22 +489,6 @@ const OutsourcingPage = () => {
           </div>
 
           <div style={{ padding: "60px 40px" }}>
-            {/* Introduction */}
-            <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Paragraph
-                style={{
-                  fontSize: "18px",
-                  lineHeight: 1.8,
-                  color: "#000",
-                  marginBottom: "60px",
-                  textAlign: "center",
-                }}
-              >
-                Мы берем на себя рутинные бизнес-процессы, позволяя вам сосредоточиться на стратегическом развитии компании. 
-                От бухгалтерии до подбора персонала — комплексный подход к оптимизации вашего бизнеса.
-              </Paragraph>
-            </Motion.div>
-
             {/* Benefits Section */}
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
               <Title level={3} style={{ textAlign: "center", marginBottom: "50px" }}>
@@ -567,7 +551,7 @@ const OutsourcingPage = () => {
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
               <div
                 style={{
-                  backgroundColor: serviceColor,
+                  backgroundColor: serviceColor, // ЗЕЛЕНЫЙ фон
                   borderRadius: "20px",
                   padding: "60px 40px",
                   textAlign: "center",

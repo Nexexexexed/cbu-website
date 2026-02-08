@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Card,
-  Button,
   Typography,
   Row,
   Col,
@@ -91,12 +90,6 @@ const CustomCTAButton = ({
       whileHover={hoverStyles[variant]}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-2px)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-      }}
     >
       {icon}
       {children}
@@ -108,49 +101,26 @@ const AccountingPage = () => {
   const navigate = useNavigate();
   const serviceColor = "#19be7d";
 
+  const mainServices = [
+    "Постановка, ведение, восстановление бухгалтерского и налогового учета для всех существующих систем налогообложения и отраслей бизнеса",
+    "Расчет заработной платы, больничных, отпускных, пособий и сопутствующих выплат",
+    "Кадровый учет",
+    "Воинский учет",
+    "Составление и подача отчетности во все виды контролирующих органов",
+    "ВЭД сопровождение: составление контракта, платежного поручения, постановка контракта на учет в банке, формирование пакета документов для подтверждения вычетов для контролирующих органов",
+    "Оформление первичных документов: счет, платежное поручение, накладная, акт выполненных работ, УПД, счет-фактура, КС-2, КС-3, доверенность и прочие",
+    "Формирование архива документов",
+    "Оценка налоговой нагрузки",
+    "Консультации по организации бухгалтерского и налогового учета",
+    "Регулярная проверка операций и рекомендации",
+    "Контроль за соблюдением сроков и требований",
+  ];
+
   const sections = [
     {
       title: "Основные услуги",
-      items: [
-        "Постановка, ведение, восстановление бухгалтерского и налогового учета",
-        "Составление и подача отчетности в контролирующие органы",
-        "Планирование налоговой нагрузки",
-        "Ведение кадрового учета",
-        "Консультации по бухгалтерским и налоговым вопросам",
-        "Работа с первичной документацией",
-        "Формирование и ведение архива документов",
-        "Расчет заработной платы и сопутствующих выплат",
-      ],
+      items: mainServices,
     },
-    {
-      title: "Специализированные услуги",
-      items: [
-        "ВЭД сопровождение (составление контрактов, платежные поручения, документы для контролирующих органов)",
-        "Оценка налоговой нагрузки и оптимизация",
-        "Подтверждение налоговых вычетов",
-        "Восстановление бухгалтерского и налогового учета",
-        "Консультации по организации бухгалтерского и налогового учета",
-      ],
-    },
-    {
-      title: "Отчетность и контроль",
-      items: [
-        "Ежемесячный предварительный расчет НДС",
-        "Своевременная сдача всех видов отчетности",
-        "Контроль за соблюдением сроков и требований",
-        "Регулярная проверка операций и рекомендации",
-        "Работа в 1С Бухгалтерия в рамках тарифа",
-      ],
-    },
-  ];
-
-  const features = [
-    "Ведение бухгалтерского и налогового учета",
-    "Расчет зарплаты и кадровый учет",
-    "Сдача отчетности в контролирующие органы",
-    "ВЭД сопровождение",
-    "Восстановление учета",
-    "Налоговое консультирование",
   ];
 
   return (
@@ -201,49 +171,6 @@ const AccountingPage = () => {
           </div>
 
           <div style={{ padding: "60px 40px" }}>
-            <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Paragraph
-                style={{
-                  fontSize: "18px",
-                  lineHeight: 1.8,
-                  color: "#000",
-                  marginBottom: "40px",
-                  textAlign: "center",
-                }}
-              >
-                Возьмем на себя ведение бухгалтерского и налогового учета вашей компании, рассчитаем зарплату, 
-                заведем кадровый учет, сдадим отчетность. Профессиональный подход и гарантия качества.
-              </Paragraph>
-            </Motion.div>
-
-            <Divider style={{ margin: "40px 0" }} />
-
-            <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Title level={3} style={{ textAlign: "center", marginBottom: "40px" }}>
-                Основные возможности
-              </Title>
-              
-              <Row gutter={[24, 24]}>
-                {features.map((feature, index) => (
-                  <Col xs={24} sm={12} md={8} key={index}>
-                    <div
-                      style={{
-                        backgroundColor: "#f8f9fa",
-                        borderRadius: "12px",
-                        padding: "20px",
-                        height: "100%",
-                        borderLeft: `4px solid ${serviceColor}`,
-                      }}
-                    >
-                      <CheckOutlined style={{ color: serviceColor, fontSize: "20px", marginBottom: "15px" }} />
-                      <Paragraph style={{ margin: 0, fontWeight: 500 }}>{feature}</Paragraph>
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            </Motion.div>
-
-            <Divider style={{ margin: "60px 0" }} />
 
             {sections.map((section, sectionIndex) => (
               <Motion.div 
@@ -253,8 +180,8 @@ const AccountingPage = () => {
                 animate="animate"
                 transition={{ delay: sectionIndex * 0.1 }}
               >
-                <div style={{ marginBottom: "50px" }}>
-                  <Title level={3} style={{ color: serviceColor, marginBottom: "30px", textAlign: "center" }}>
+                <div style={{ marginBottom: "30px" }}>
+                  <Title level={3} style={{ color: serviceColor, marginBottom: "40px", textAlign: "center" }}>
                     {section.title}
                   </Title>
                   
@@ -269,6 +196,7 @@ const AccountingPage = () => {
                             padding: "20px",
                             backgroundColor: "#f8f9fa",
                             borderRadius: "12px",
+                            minHeight: "100px",
                           }}
                         >
                           <div
@@ -281,13 +209,12 @@ const AccountingPage = () => {
                               alignItems: "center",
                               justifyContent: "center",
                               flexShrink: 0,
+                              marginTop: "4px",
                             }}
                           >
-                            <span style={{ color: "white", fontSize: "12px", fontWeight: "bold" }}>
-                              {itemIndex + 1}
-                            </span>
+                            <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
                           </div>
-                          <Paragraph style={{ margin: 0, fontSize: "16px" }}>{item}</Paragraph>
+                          <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{item}</Paragraph>
                         </div>
                       </Col>
                     ))}
@@ -401,7 +328,6 @@ const AccountingPage = () => {
                     </CustomCTAButton>
                   </Space>
                   
-                  {/* Дополнительный текст под кнопками */}
                   <Paragraph 
                     style={{ 
                       fontSize: "14px", 

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Card,
-  Button,
   Typography,
   Row,
   Col,
@@ -32,7 +31,7 @@ const CustomCTAButton = ({
   icon, 
   style = {} 
 }) => {
-  const serviceColor = "#722ed1";
+  const serviceColor = "#19be7d";
   
   const baseStyles = {
     height: "56px",
@@ -68,11 +67,11 @@ const CustomCTAButton = ({
 
   const hoverStyles = {
     primary: {
-      backgroundColor: "#531dab",
-      borderColor: "#531dab",
+      backgroundColor: "#14a36b",
+      borderColor: "#14a36b",
       color: "white",
       transform: "translateY(-2px)",
-      boxShadow: `0 8px 25px rgba(83, 29, 171, 0.3)`,
+      boxShadow: `0 8px 25px rgba(20, 163, 107, 0.3)`,
     },
     secondary: {
       backgroundColor: "white",
@@ -91,12 +90,6 @@ const CustomCTAButton = ({
       whileHover={hoverStyles[variant]}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-2px)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-      }}
     >
       {icon}
       {children}
@@ -106,60 +99,31 @@ const CustomCTAButton = ({
 
 const ManagementPage = () => {
   const navigate = useNavigate();
-  const serviceColor = "#722ed1";
+  const serviceColor = "#19be7d";
+
+  const mainServices = [
+    "Разработка системы финансового учета",
+    "Создание бюджета компании на период по запросу",
+    "Создание формы движения денежных средств на период по запросу",
+    "Платежный календарь на период по запросу",
+    "Расчет себестоимости, наценки",
+    "Расчет показателей маржинальной, операционной прибыли, чистой прибыли",
+    "Расчет среднего чека",
+    "Расчет точки безубыточности",
+    "Финансовое моделирование",
+    "Управление рисками",
+    "Рекомендации по управлению ресурсами и запасами",
+    "Оценка эффективности работы структуры бизнеса и ее подразделений",
+    "Разработка системы мотивации персонала",
+    "Настройка бизнес-процессов",
+    "Создание управленческих регламентов",
+  ];
 
   const sections = [
     {
-      title: "Бюджетирование и планирование",
-      items: [
-        "Составление бюджета доходов и расходов на месяц/квартал/год",
-        "Разработка системы финансового учета (ДДС, ОПиУ)",
-        "Создание бюджета компании на период по запросу",
-        "Платежный календарь",
-        "Прогнозирование движения денежных средств",
-        "Предупреждение и устранение кассовых разрывов",
-      ],
+      title: "Основные услуги",
+      items: mainServices,
     },
-    {
-      title: "Финансовый анализ",
-      items: [
-        "Расчет маржинальной, операционной прибыли, чистой прибыли",
-        "Сбор отчетов о прибылях и убытках",
-        "Расчет себестоимости, наценки, рентабельности",
-        "Контроль показателей себестоимости",
-        "Расчет точки безубыточности",
-        "Расчет среднего чека",
-      ],
-    },
-    {
-      title: "Аналитика и оптимизация",
-      items: [
-        "Оценка структуры бизнеса и эффективности подразделений",
-        "Подсветка неэффективных подразделений и процессов",
-        "Оценка маржинальности и рентабельности",
-        "Финансовое моделирование",
-        "Управление рисками",
-      ],
-    },
-    {
-      title: "Регламентация и мотивация",
-      items: [
-        "Разработка системы мотивации персонала",
-        "Создание внутренних регламентов компании",
-        "Настройка бизнес-процессов",
-        "Создание управленческих регламентов",
-        "Рекомендации по управлению ресурсами и запасами",
-      ],
-    },
-  ];
-
-  const features = [
-    "Бюджетирование доходов и расходов",
-    "Прогнозирование денежных потоков",
-    "Расчет себестоимости и рентабельности",
-    "Анализ эффективности подразделений",
-    "Разработка KPI и мотивации",
-    "Создание управленческих регламентов",
   ];
 
   return (
@@ -177,7 +141,7 @@ const ManagementPage = () => {
         >
           <div
             style={{
-              background: `linear-gradient(135deg, ${serviceColor} 0%, #531dab 100%)`,
+              background: `linear-gradient(135deg, ${serviceColor} 0%, #14a36b 100%)`,
               padding: "60px 40px",
               textAlign: "center",
               color: "white",
@@ -210,50 +174,6 @@ const ManagementPage = () => {
           </div>
 
           <div style={{ padding: "60px 40px" }}>
-            <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Paragraph
-                style={{
-                  fontSize: "18px",
-                  lineHeight: 1.8,
-                  color: "#000",
-                  marginBottom: "40px",
-                  textAlign: "center",
-                }}
-              >
-                Посчитаем доходы и расходы, составим бюджет, спрогнозируем и устраним кассовые разрывы, 
-                подсветим неэффективные процессы. Прозрачное управление финансами для принятия верных решений.
-              </Paragraph>
-            </Motion.div>
-
-            <Divider style={{ margin: "40px 0" }} />
-
-            <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Title level={3} style={{ textAlign: "center", marginBottom: "40px" }}>
-                Ключевые инструменты
-              </Title>
-              
-              <Row gutter={[24, 24]}>
-                {features.map((feature, index) => (
-                  <Col xs={24} sm={12} md={8} key={index}>
-                    <div
-                      style={{
-                        backgroundColor: "#f8f9fa",
-                        borderRadius: "12px",
-                        padding: "20px",
-                        height: "100%",
-                        borderLeft: `4px solid ${serviceColor}`,
-                      }}
-                    >
-                      <CheckOutlined style={{ color: serviceColor, fontSize: "20px", marginBottom: "15px" }} />
-                      <Paragraph style={{ margin: 0, fontWeight: 500 }}>{feature}</Paragraph>
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            </Motion.div>
-
-            <Divider style={{ margin: "60px 0" }} />
-
             {sections.map((section, sectionIndex) => (
               <Motion.div 
                 key={sectionIndex} 
@@ -262,8 +182,8 @@ const ManagementPage = () => {
                 animate="animate"
                 transition={{ delay: sectionIndex * 0.1 }}
               >
-                <div style={{ marginBottom: "50px" }}>
-                  <Title level={3} style={{ color: serviceColor, marginBottom: "30px", textAlign: "center" }}>
+                <div style={{ marginBottom: "30px" }}>
+                  <Title level={3} style={{ color: serviceColor, marginBottom: "40px", textAlign: "center" }}>
                     {section.title}
                   </Title>
                   
@@ -278,6 +198,7 @@ const ManagementPage = () => {
                             padding: "20px",
                             backgroundColor: "#f8f9fa",
                             borderRadius: "12px",
+                            minHeight: "100px",
                           }}
                         >
                           <div
@@ -290,13 +211,12 @@ const ManagementPage = () => {
                               alignItems: "center",
                               justifyContent: "center",
                               flexShrink: 0,
+                              marginTop: "4px",
                             }}
                           >
-                            <span style={{ color: "white", fontSize: "12px", fontWeight: "bold" }}>
-                              {itemIndex + 1}
-                            </span>
+                            <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
                           </div>
-                          <Paragraph style={{ margin: 0, fontSize: "16px" }}>{item}</Paragraph>
+                          <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{item}</Paragraph>
                         </div>
                       </Col>
                     ))}
@@ -310,7 +230,7 @@ const ManagementPage = () => {
               
               <div
                 style={{
-                  backgroundColor: "#f9f0ff",
+                  backgroundColor: "#f0faf5",
                   borderRadius: "20px",
                   padding: "50px",
                   textAlign: "center",
@@ -410,7 +330,6 @@ const ManagementPage = () => {
                     </CustomCTAButton>
                   </Space>
                   
-                  {/* Дополнительный текст под кнопками */}
                   <Paragraph 
                     style={{ 
                       fontSize: "14px", 

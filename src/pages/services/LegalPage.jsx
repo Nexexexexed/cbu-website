@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Card,
-  Button,
   Typography,
   Row,
   Col,
@@ -12,6 +11,8 @@ import {
   FileTextOutlined,
   PhoneOutlined,
   CheckOutlined,
+  BuildOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { motion as Motion } from "framer-motion";
@@ -32,7 +33,7 @@ const CustomCTAButton = ({
   icon, 
   style = {} 
 }) => {
-  const serviceColor = "#1890ff";
+  const serviceColor = "#19be7d";
   
   const baseStyles = {
     height: "56px",
@@ -68,11 +69,11 @@ const CustomCTAButton = ({
 
   const hoverStyles = {
     primary: {
-      backgroundColor: "#096dd9",
-      borderColor: "#096dd9",
+      backgroundColor: "#14a36b",
+      borderColor: "#14a36b",
       color: "white",
       transform: "translateY(-2px)",
-      boxShadow: `0 8px 25px rgba(9, 109, 217, 0.3)`,
+      boxShadow: `0 8px 25px rgba(20, 163, 107, 0.3)`,
     },
     secondary: {
       backgroundColor: "white",
@@ -91,12 +92,6 @@ const CustomCTAButton = ({
       whileHover={hoverStyles[variant]}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-2px)";
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-      }}
     >
       {icon}
       {children}
@@ -106,60 +101,28 @@ const CustomCTAButton = ({
 
 const LegalPage = () => {
   const navigate = useNavigate();
-  const serviceColor = "#1890ff";
+  const serviceColor = "#19be7d";
 
-  const sections = [
-    {
-      title: "Регистрация и сопровождение бизнеса",
-      items: [
-        "Регистрация юридических лиц и ИП",
-        "Внесение изменений в учредительные документы",
-        "Подготовка решений собраний участников",
-        "Оформление выхода участников и продажи долей",
-        "Смена исполнительных органов и юридического адреса",
-        "Регистрация изменений в ЕГРЮЛ/ЕГРИП",
-      ],
-    },
-    {
-      title: "Документарная поддержка",
-      items: [
-        "Консультации в области гражданского и административного права",
-        "Составление исковых заявлений, апелляционных жалоб, возражений",
-        "Подготовка претензий и договоров любой сложности",
-        "Правовая экспертиза договоров и дополнительных соглашений",
-        "Составление протоколов разногласий",
-      ],
-    },
-    {
-      title: "Судебная защита",
-      items: [
-        "Представление интересов в судах общей юрисдикции",
-        "Представительство в арбитражных судах",
-        "Апелляционное и кассационное сопровождение",
-        "Досудебная претензионная работа",
-        "Взыскание проблемной дебиторской задолженности",
-      ],
-    },
-    {
-      title: "Специализированные услуги",
-      items: [
-        "Абонентское обслуживание юридических лиц",
-        "Юридическое сопровождение сделок",
-        "Сопровождение сделок с коммерческой и жилой недвижимостью",
-        "Решение трудовых споров",
-        "Сопровождение процедур банкротства юридических лиц",
-        "Ведение исполнительных производств",
-      ],
-    },
+  const businessServices = [
+    "Регистрация юридических лиц и ИП",
+    "Внесение изменений в учредительные документы",
+    "Оформление выхода участников и продажи долей",
+    "Правовая экспертиза договоров и дополнительных соглашений",
+    "Составление протоколов разногласий",
+    "Досудебная претензионная работа",
+    "Взыскание проблемной дебиторской задолженности",
+    "Составление исковых заявлений, апелляционных жалоб, возражений",
+    "Ведение исполнительных производств",
+    "Представительство в арбитражных судах",
+    "Апелляционное и кассационное сопровождение",
+    "Сопровождение процедур банкротства юридических лиц",
   ];
 
-  const features = [
-    "Регистрация и ликвидация бизнеса",
-    "Составление и экспертиза договоров",
-    "Судебное представительство",
-    "Взыскание дебиторской задолженности",
+  const personalServices = [
+    "Консультации в области гражданского и административного права",
     "Трудовые споры",
-    "Сопровождение банкротства",
+    "Сопровождение сделок с коммерческой и жилой недвижимостью",
+    "Представление интересов в судах общей юрисдикции",
   ];
 
   return (
@@ -177,7 +140,7 @@ const LegalPage = () => {
         >
           <div
             style={{
-              background: `linear-gradient(135deg, ${serviceColor} 0%, #096dd9 100%)`,
+              background: `linear-gradient(135deg, ${serviceColor} 0%, #14a36b 100%)`,
               padding: "60px 40px",
               textAlign: "center",
               color: "white",
@@ -210,107 +173,121 @@ const LegalPage = () => {
           </div>
 
           <div style={{ padding: "60px 40px" }}>
-            <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Paragraph
-                style={{
-                  fontSize: "18px",
-                  lineHeight: 1.8,
-                  color: "#000",
-                  marginBottom: "40px",
-                  textAlign: "center",
-                }}
-              >
-                Зарегистрируем новый бизнес, внесем изменения, составим договор, возьмем на себя претензионно-исковую работу, 
-                представим интересы в суде. Полный спектр юридических услуг для защиты вашего бизнеса.
-              </Paragraph>
-            </Motion.div>
-
-            <Divider style={{ margin: "40px 0" }} />
 
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Title level={3} style={{ textAlign: "center", marginBottom: "40px" }}>
-                Основные направления
+              <Title level={2} style={{ textAlign: "center", marginBottom: "50px", color: serviceColor }}>
+                Основные услуги
               </Title>
               
-              <Row gutter={[24, 24]}>
-                {features.map((feature, index) => (
-                  <Col xs={24} sm={12} md={8} key={index}>
-                    <div
-                      style={{
-                        backgroundColor: "#f8f9fa",
-                        borderRadius: "12px",
-                        padding: "20px",
-                        height: "100%",
-                        borderLeft: `4px solid ${serviceColor}`,
-                      }}
-                    >
-                      <CheckOutlined style={{ color: serviceColor, fontSize: "20px", marginBottom: "15px" }} />
-                      <Paragraph style={{ margin: 0, fontWeight: 500 }}>{feature}</Paragraph>
-                    </div>
-                  </Col>
-                ))}
-              </Row>
-            </Motion.div>
-
-            <Divider style={{ margin: "60px 0" }} />
-
-            {sections.map((section, sectionIndex) => (
-              <Motion.div 
-                key={sectionIndex} 
-                variants={fadeInUp} 
-                initial="initial" 
-                animate="animate"
-                transition={{ delay: sectionIndex * 0.1 }}
-              >
-                <div style={{ marginBottom: "50px" }}>
-                  <Title level={3} style={{ color: serviceColor, marginBottom: "30px", textAlign: "center" }}>
-                    {section.title}
+              {/* Для бизнеса */}
+              <div style={{ marginBottom: "60px" }}>
+                <div style={{ 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center", 
+                  gap: "15px", 
+                  marginBottom: "30px" 
+                }}>
+                  <BuildOutlined style={{ fontSize: "32px", color: serviceColor }} />
+                  <Title level={3} style={{ margin: 0, color: serviceColor }}>
+                    Для бизнеса
                   </Title>
-                  
-                  <Row gutter={[24, 24]}>
-                    {section.items.map((item, itemIndex) => (
-                      <Col xs={24} sm={12} key={itemIndex}>
+                </div>
+                
+                <Row gutter={[24, 24]}>
+                  {businessServices.map((service, index) => (
+                    <Col xs={24} sm={12} key={index}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "15px",
+                          padding: "20px",
+                          backgroundColor: "#f8f9fa",
+                          borderRadius: "12px",
+                          minHeight: "100px",
+                        }}
+                      >
                         <div
                           style={{
+                            width: "24px",
+                            height: "24px",
+                            borderRadius: "50%",
+                            backgroundColor: serviceColor,
                             display: "flex",
-                            alignItems: "flex-start",
-                            gap: "15px",
-                            padding: "20px",
-                            backgroundColor: "#f8f9fa",
-                            borderRadius: "12px",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                            marginTop: "4px",
                           }}
                         >
-                          <div
-                            style={{
-                              width: "24px",
-                              height: "24px",
-                              borderRadius: "50%",
-                              backgroundColor: serviceColor,
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              flexShrink: 0,
-                            }}
-                          >
-                            <span style={{ color: "white", fontSize: "12px", fontWeight: "bold" }}>
-                              {itemIndex + 1}
-                            </span>
-                          </div>
-                          <Paragraph style={{ margin: 0, fontSize: "16px" }}>{item}</Paragraph>
+                          <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
                         </div>
-                      </Col>
-                    ))}
-                  </Row>
+                        <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{service}</Paragraph>
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+
+              {/* Для физических лиц */}
+              <div>
+                <div style={{ 
+                  display: "flex", 
+                  alignItems: "center", 
+                  justifyContent: "center", 
+                  gap: "15px", 
+                  marginBottom: "30px" 
+                }}>
+                  <UserOutlined style={{ fontSize: "32px", color: serviceColor }} />
+                  <Title level={3} style={{ margin: 0, color: serviceColor }}>
+                    Для физических лиц
+                  </Title>
                 </div>
-              </Motion.div>
-            ))}
+                
+                <Row gutter={[24, 24]}>
+                  {personalServices.map((service, index) => (
+                    <Col xs={24} sm={12} key={index}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "15px",
+                          padding: "20px",
+                          backgroundColor: "#f8f9fa",
+                          borderRadius: "12px",
+                          minHeight: "100px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "24px",
+                            height: "24px",
+                            borderRadius: "50%",
+                            backgroundColor: serviceColor,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                            marginTop: "4px",
+                          }}
+                        >
+                          <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
+                        </div>
+                        <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{service}</Paragraph>
+                      </div>
+                    </Col>
+                  ))}
+                </Row>
+              </div>
+            </Motion.div>
 
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
               <Divider style={{ margin: "60px 0" }} />
               
               <div
                 style={{
-                  backgroundColor: "#e6f7ff",
+                  backgroundColor: "#f0faf5",
                   borderRadius: "20px",
                   padding: "50px",
                   textAlign: "center",
@@ -321,14 +298,7 @@ const LegalPage = () => {
                   Наши преимущества
                 </Title>
                 
-                <Row gutter={[32, 32]} style={{ marginTop: "40px" }}>
-                  <Col xs={24} md={8}>
-                    <div style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "40px", fontWeight: "bold", color: serviceColor }}>100+</div>
-                      <Paragraph style={{ fontWeight: 500 }}>Выигранных дел</Paragraph>
-                    </div>
-                  </Col>
-                  
+                <Row gutter={[32, 32]} style={{ marginTop: "40px" }}>         
                   <Col xs={24} md={8}>
                     <div style={{ textAlign: "center" }}>
                       <div style={{ fontSize: "40px", fontWeight: "bold", color: serviceColor }}>15+</div>
@@ -410,7 +380,6 @@ const LegalPage = () => {
                     </CustomCTAButton>
                   </Space>
                   
-                  {/* Дополнительный текст под кнопками */}
                   <Paragraph 
                     style={{ 
                       fontSize: "14px", 
