@@ -289,8 +289,9 @@ const HomePage = () => {
           style={{
             maxWidth: "1000px",
             position: "relative",
-            marginTop:"275px",
+            marginTop: "275px",
             zIndex: 2,
+            padding: "0 16px",
           }}
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -300,7 +301,7 @@ const HomePage = () => {
             <Title
               style={{
                 color: "white",
-                fontSize: "3.0rem",
+                fontSize: "clamp(1.8rem, 6vw, 3rem)",
                 marginBottom: "24px",
                 fontWeight: 800,
                 lineHeight: 1.2,
@@ -312,7 +313,7 @@ const HomePage = () => {
             </Title>
           </div>
 
-          <Space size="large">
+          <Space size="large" wrap style={{ justifyContent: "center" }}>
             <Motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Button
                 type="primary"
@@ -320,12 +321,13 @@ const HomePage = () => {
                 style={{
                   backgroundColor: "#19be7d",
                   borderColor: "#19be7d",
-                  height: "56px",
-                  padding: "0 40px",
+                  height: "clamp(48px, 8vw, 56px)",
+                  padding: "0 clamp(20px, 5vw, 40px)",
                   borderRadius: "8px",
-                  fontSize: "16px",
+                  fontSize: "clamp(14px, 4vw, 16px)",
                   fontWeight: 600,
                   boxShadow: "0 4px 15px rgba(25, 190, 125, 0.3)",
+                  whiteSpace: "nowrap",
                 }}
                 onClick={showModal}
                 icon={<RocketOutlined />}
@@ -340,7 +342,7 @@ const HomePage = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              gap: "40px",
+              gap: "clamp(20px, 5vw, 40px)",
               marginTop: "20px",
               flexWrap: "wrap",
             }}
@@ -360,7 +362,7 @@ const HomePage = () => {
               >
                 <Text
                   style={{
-                    fontSize: "2.5rem",
+                    fontSize: "clamp(1.8rem, 6vw, 2.5rem)",
                     fontWeight: 800,
                     color: "#19be7d",
                     lineHeight: 1,
@@ -372,7 +374,7 @@ const HomePage = () => {
                 <Text
                   style={{
                     color: "#b9ebd7",
-                    fontSize: "14px",
+                    fontSize: "clamp(12px, 3vw, 14px)",
                     fontWeight: 500,
                     marginTop: "8px",
                     display: "block",
@@ -385,7 +387,7 @@ const HomePage = () => {
           </Motion.div>
         </Motion.div>
 
-        {/* Анимированная стрелка скролла */}
+        {/* Анимированная стрелка скролла - скрываем на мобилке */}
         <Motion.div
           style={{
             position: "absolute",
@@ -396,23 +398,23 @@ const HomePage = () => {
             fontSize: "24px",
             cursor: "pointer",
             zIndex: 2,
+            display: "flex",
           }}
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
           onClick={() =>
             window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
           }
+          className="scroll-arrow"
         >
           <DownCircleOutlined />
         </Motion.div>
       </Motion.section>
 
-
-
       {/* Секция услуг с детальным описанием (3 услуги) */}
       <Motion.section
         style={{
-          padding: "80px 20px",
+          padding: "clamp(40px, 8vw, 80px) 20px",
           backgroundColor: "#f8f9fa",
         }}
         initial={{ opacity: 0 }}
@@ -421,7 +423,7 @@ const HomePage = () => {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Motion.div
-            style={{ textAlign: "center", marginBottom: "60px" }}
+            style={{ textAlign: "center", marginBottom: "clamp(30px, 6vw, 60px)" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
@@ -432,18 +434,19 @@ const HomePage = () => {
               style={{
                 color: "#000000",
                 marginBottom: "16px",
+                fontSize: "clamp(1.5rem, 5vw, 2rem)",
               }}
             >
               Услуги для бизнеса
             </Title>
             <Paragraph
               style={{
-                fontSize: "20px",
+                fontSize: "clamp(16px, 4vw, 20px)",
                 color: "white",
                 maxWidth: "700px",
                 margin: "0 auto",
                 backgroundColor: "rgb(25, 190, 125)",
-                padding: "25px 10px",
+                padding: "clamp(16px, 4vw, 25px) clamp(10px, 3vw, 20px)",
                 borderRadius: "16px",
               }}
             >
@@ -478,7 +481,7 @@ const HomePage = () => {
                         flexDirection: "column",
                       }}
                       bodyStyle={{
-                        padding: "40px",
+                        padding: "clamp(20px, 5vw, 40px)",
                         flex: 1,
                         display: "flex",
                         flexDirection: "column",
@@ -496,14 +499,15 @@ const HomePage = () => {
                           style={{
                             display: "flex",
                             alignItems: "flex-start",
-                            gap: "24px",
-                            marginBottom: "32px",
+                            gap: "clamp(16px, 4vw, 24px)",
+                            marginBottom: "clamp(20px, 5vw, 32px)",
+                            flexWrap: "wrap",
                           }}
                         >
                           <div
                             style={{
-                              width: "64px",
-                              height: "64px",
+                              width: "clamp(50px, 12vw, 64px)",
+                              height: "clamp(50px, 12vw, 64px)",
                               borderRadius: "12px",
                               backgroundColor: "#f0faf5",
                               display: "flex",
@@ -513,7 +517,7 @@ const HomePage = () => {
                               border: `2px solid #19be7d40`,
                             }}
                           >
-                            <div style={{ fontSize: "32px", color: "#19be7d" }}>
+                            <div style={{ fontSize: "clamp(24px, 6vw, 32px)", color: "#19be7d" }}>
                               {service.icon}
                             </div>
                           </div>
@@ -521,7 +525,7 @@ const HomePage = () => {
                           <div style={{ flex: 1 }}>
                             <Title
                               level={3}
-                              style={{ color: "#000000", marginBottom: "12px" }}
+                              style={{ color: "#000000", marginBottom: "12px", fontSize: "clamp(1.2rem, 4vw, 1.5rem)" }}
                             >
                               {service.title}
                             </Title>
@@ -546,7 +550,7 @@ const HomePage = () => {
                                   fontSize: "14px",
                                 }}
                               />
-                              <span style={{ fontSize: "14px" }}>
+                              <span style={{ fontSize: "clamp(13px, 3.5vw, 14px)" }}>
                                 {feature}
                               </span>
                             </div>
@@ -562,6 +566,8 @@ const HomePage = () => {
                             fontWeight: 600,
                             width: "100%",
                             marginTop: "auto",
+                            height: "clamp(40px, 8vw, 48px)",
+                            fontSize: "clamp(14px, 3.5vw, 16px)",
                           }}
                           onMouseEnter={(e) => {
                             e.target.style.backgroundColor = "#14a36b";
@@ -587,7 +593,7 @@ const HomePage = () => {
       {/* Секция "Как это работает" */}
       <Motion.section
         style={{
-          padding: "80px 20px",
+          padding: "clamp(40px, 8vw, 80px) 20px",
           backgroundColor: "#ffffff",
         }}
         initial={{ opacity: 0 }}
@@ -596,19 +602,19 @@ const HomePage = () => {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Motion.div
-            style={{ textAlign: "center", marginBottom: "60px" }}
+            style={{ textAlign: "center", marginBottom: "clamp(30px, 6vw, 60px)" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
           >
-            <Title level={2} style={{ color: "#000000", marginBottom: "16px" }}>
+            <Title level={2} style={{ color: "#000000", marginBottom: "16px", fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>
               <span style={{ color: "#19be7d" }}>4 простых шага</span> до начала
               сотрудничества
             </Title>
             <Paragraph
               style={{
-                fontSize: "18px",
+                fontSize: "clamp(14px, 4vw, 18px)",
                 color: "#55646e",
                 maxWidth: "700px",
                 margin: "0 auto",
@@ -640,7 +646,7 @@ const HomePage = () => {
                         border: "2px solid #f0f0f0",
                         textAlign: "center",
                         height: "100%",
-                        padding: "32px 24px",
+                        padding: "clamp(20px, 5vw, 32px) clamp(16px, 4vw, 24px)",
                         transition: "all 0.3s ease",
                       }}
                       bodyStyle={{
@@ -651,8 +657,8 @@ const HomePage = () => {
                     >
                       <div
                         style={{
-                          width: "80px",
-                          height: "80px",
+                          width: "clamp(60px, 15vw, 80px)",
+                          height: "clamp(60px, 15vw, 80px)",
                           borderRadius: "50%",
                           backgroundColor: "#f0faf5",
                           display: "flex",
@@ -662,15 +668,15 @@ const HomePage = () => {
                           border: `2px solid #19be7d`,
                         }}
                       >
-                        <div style={{ fontSize: "32px", color: "#19be7d" }}>
+                        <div style={{ fontSize: "clamp(24px, 6vw, 32px)", color: "#19be7d" }}>
                           {step.icon}
                         </div>
                       </div>
 
                       <div
                         style={{
-                          width: "40px",
-                          height: "40px",
+                          width: "clamp(32px, 8vw, 40px)",
+                          height: "clamp(32px, 8vw, 40px)",
                           borderRadius: "50%",
                           backgroundColor: "#19be7d",
                           color: "white",
@@ -679,7 +685,7 @@ const HomePage = () => {
                           justifyContent: "center",
                           marginBottom: "16px",
                           fontWeight: "bold",
-                          fontSize: "18px",
+                          fontSize: "clamp(16px, 4vw, 18px)",
                         }}
                       >
                         {index + 1}
@@ -687,11 +693,11 @@ const HomePage = () => {
 
                       <Title
                         level={4}
-                        style={{ marginBottom: "12px", color: "#000000" }}
+                        style={{ marginBottom: "12px", color: "#000000", fontSize: "clamp(1rem, 4vw, 1.2rem)" }}
                       >
                         {step.title}
                       </Title>
-                      <Paragraph style={{ color: "#55646e", margin: 0 }}>
+                      <Paragraph style={{ color: "#55646e", margin: 0, fontSize: "clamp(13px, 3.5vw, 14px)" }}>
                         {step.content}
                       </Paragraph>
                     </Card>
@@ -702,7 +708,7 @@ const HomePage = () => {
           </Motion.div>
 
           <Motion.div
-            style={{ textAlign: "center", marginTop: "60px" }}
+            style={{ textAlign: "center", marginTop: "clamp(40px, 8vw, 60px)" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
@@ -714,10 +720,10 @@ const HomePage = () => {
               style={{
                 backgroundColor: "#19be7d",
                 borderColor: "#19be7d",
-                height: "56px",
-                padding: "0 40px",
+                height: "clamp(48px, 8vw, 56px)",
+                padding: "0 clamp(20px, 5vw, 40px)",
                 borderRadius: "8px",
-                fontSize: "16px",
+                fontSize: "clamp(14px, 4vw, 16px)",
                 fontWeight: 600,
               }}
               onClick={showModal}
@@ -731,7 +737,7 @@ const HomePage = () => {
       {/* Секция "Почему выбирают нас" */}
       <Motion.section
         style={{
-          padding: "80px 20px",
+          padding: "clamp(40px, 8vw, 80px) 20px",
           backgroundColor: "rgb(248, 249, 250)",
         }}
         initial={{ opacity: 0 }}
@@ -740,23 +746,23 @@ const HomePage = () => {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Motion.div
-            style={{ textAlign: "center", marginBottom: "60px" }}
+            style={{ textAlign: "center", marginBottom: "clamp(30px, 6vw, 60px)" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
           >
-            <Title level={2} style={{ color: "#000000", marginBottom: "16px" }}>
+            <Title level={2} style={{ color: "#000000", marginBottom: "16px", fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>
               Почему вы можете доверять нам
             </Title>
             <Paragraph
               style={{
-                fontSize: "20px",
+                fontSize: "clamp(16px, 4vw, 20px)",
                 color: "white",
                 maxWidth: "700px",
                 margin: "0 auto",
                 backgroundColor: "rgb(25, 190, 125)",
-                padding: "25px 10px",
+                padding: "clamp(16px, 4vw, 25px) clamp(10px, 3vw, 20px)",
                 borderRadius: "16px",
               }}
             >
@@ -789,7 +795,7 @@ const HomePage = () => {
                         transition: "all 0.3s ease",
                       }}
                       bodyStyle={{
-                        padding: "32px",
+                        padding: "clamp(20px, 5vw, 32px)",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
@@ -798,8 +804,8 @@ const HomePage = () => {
                     >
                       <div
                         style={{
-                          width: "60px",
-                          height: "60px",
+                          width: "clamp(50px, 12vw, 60px)",
+                          height: "clamp(50px, 12vw, 60px)",
                           borderRadius: "12px",
                           backgroundColor: "#f0faf5",
                           display: "flex",
@@ -812,7 +818,7 @@ const HomePage = () => {
                         {typeof advantage.icon === "object" && 
                         advantage.icon.type && 
                         advantage.icon.type.name !== "img" ? (
-                          <div style={{ fontSize: "28px", color: advantage.color }}>
+                          <div style={{ fontSize: "clamp(24px, 6vw, 28px)", color: advantage.color }}>
                             {advantage.icon}
                           </div>
                         ) : (
@@ -822,11 +828,11 @@ const HomePage = () => {
 
                       <Title
                         level={4}
-                        style={{ color: "#000000", marginBottom: "12px" }}
+                        style={{ color: "#000000", marginBottom: "12px", fontSize: "clamp(1rem, 4vw, 1.2rem)" }}
                       >
                         {advantage.title}
                       </Title>
-                      <Paragraph style={{ color: "#55646e", margin: 0 }}>
+                      <Paragraph style={{ color: "#55646e", margin: 0, fontSize: "clamp(13px, 3.5vw, 14px)" }}>
                         {advantage.desc}
                       </Paragraph>
                     </Card>
@@ -841,7 +847,7 @@ const HomePage = () => {
       {/* Секция FAQ */}
       <Motion.section
         style={{
-          padding: "80px 20px",
+          padding: "clamp(40px, 8vw, 80px) 20px",
           backgroundColor: "#ffffff",
         }}
         initial={{ opacity: 0 }}
@@ -850,7 +856,7 @@ const HomePage = () => {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <Motion.div
-            style={{ textAlign: "center", marginBottom: "60px" }}
+            style={{ textAlign: "center", marginBottom: "clamp(30px, 6vw, 60px)" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
@@ -861,7 +867,7 @@ const HomePage = () => {
               style={{
                 color: "#000000",
                 marginBottom: "16px",
-                fontSize: "2.5rem",
+                fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
                 fontWeight: 800,
               }}
             >
@@ -869,7 +875,7 @@ const HomePage = () => {
             </Title>
             <Paragraph
               style={{
-                fontSize: "1.1rem",
+                fontSize: "clamp(14px, 4vw, 1.1rem)",
                 color: "#55646e",
                 maxWidth: "800px",
                 margin: "0 auto",
@@ -923,11 +929,10 @@ const HomePage = () => {
                             <div
                               style={{
                                 fontWeight: 700,
-                                fontSize: "17px",
+                                fontSize: "clamp(15px, 4vw, 17px)",
                                 color: "#000000",
                                 paddingRight: "20px",
                                 lineHeight: 1.4,
-                                height: "3rem",
                               }}
                             >
                               {item.question}
@@ -945,9 +950,10 @@ const HomePage = () => {
                             style={{
                               color: "#55646e",
                               margin: 0,
-                              fontSize: "16px",
+                              fontSize: "clamp(14px, 3.5vw, 16px)",
                               lineHeight: 1.6,
                               padding: "8px 0",
+                              wordBreak: "break-word",
                             }}
                           >
                             {item.answer}
@@ -999,7 +1005,7 @@ const HomePage = () => {
                             <div
                               style={{
                                 fontWeight: 700,
-                                fontSize: "17px",
+                                fontSize: "clamp(15px, 4vw, 17px)",
                                 color: "#000000",
                                 paddingRight: "20px",
                                 lineHeight: 1.4,
@@ -1020,9 +1026,10 @@ const HomePage = () => {
                             style={{
                               color: "#55646e",
                               margin: 0,
-                              fontSize: "16px",
+                              fontSize: "clamp(14px, 3.5vw, 16px)",
                               lineHeight: 1.6,
                               padding: "8px 0",
+                              wordBreak: "break-word",
                             }}
                           >
                             {item.answer}
@@ -1039,8 +1046,8 @@ const HomePage = () => {
           <Motion.div
             style={{
               textAlign: "center",
-              marginTop: "60px",
-              padding: "40px",
+              marginTop: "clamp(40px, 8vw, 60px)",
+              padding: "clamp(24px, 5vw, 40px)",
               backgroundColor: "#f0faf5",
               borderRadius: "20px",
               border: "1px solid #b9ebd7",
@@ -1055,26 +1062,28 @@ const HomePage = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: "16px",
+                gap: "clamp(12px, 3vw, 16px)",
                 marginBottom: "16px",
+                flexWrap: "wrap",
               }}
             >
               <QuestionCircleOutlined
-                style={{ fontSize: "32px", color: "#19be7d" }}
+                style={{ fontSize: "clamp(24px, 6vw, 32px)", color: "#19be7d" }}
               />
               <Title
                 level={3}
-                style={{ margin: 0, color: "#000000", fontSize: "1.8rem" }}
+                style={{ margin: 0, color: "#000000", fontSize: "clamp(1.2rem, 4.5vw, 1.8rem)" }}
               >
                 Не нашли ответ на свой вопрос?
               </Title>
             </div>
             <Paragraph
               style={{
-                fontSize: "18px",
+                fontSize: "clamp(14px, 4vw, 18px)",
                 color: "#55646e",
                 maxWidth: "600px",
                 margin: "0 auto 24px",
+                padding: "0 16px",
               }}
             >
               Задайте его нашему специалисту — получите подробную консультацию
@@ -1087,12 +1096,13 @@ const HomePage = () => {
                 style={{
                   backgroundColor: "#19be7d",
                   borderColor: "#19be7d",
-                  height: "56px",
-                  padding: "0 40px",
+                  height: "clamp(48px, 8vw, 56px)",
+                  padding: "0 clamp(20px, 5vw, 40px)",
                   borderRadius: "12px",
-                  fontSize: "17px",
+                  fontSize: "clamp(14px, 4vw, 17px)",
                   fontWeight: 600,
                   boxShadow: "0 4px 15px rgba(25, 190, 125, 0.2)",
+                  whiteSpace: "nowrap",
                 }}
                 onClick={showModal}
                 icon={<MessageOutlined />}
@@ -1107,7 +1117,7 @@ const HomePage = () => {
       {/* Секция CTA */}
       <Motion.section
         style={{
-          padding: "100px 20px",
+          padding: "clamp(60px, 10vw, 100px) 20px",
           background: "linear-gradient(135deg, #19be7d 0%, #14a36b 100%)",
           position: "relative",
           overflow: "hidden",
@@ -1122,24 +1132,26 @@ const HomePage = () => {
             margin: "0 auto",
             position: "relative",
             zIndex: 2,
+            padding: "0 16px",
           }}
         >
           <Motion.div
-            style={{ textAlign: "center", marginBottom: "40px" }}
+            style={{ textAlign: "center", marginBottom: "clamp(30px, 6vw, 40px)" }}
             variants={fadeInUp}
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
           >
-            <Title level={2} style={{ color: "#ffffff", marginBottom: "16px" }}>
+            <Title level={2} style={{ color: "#ffffff", marginBottom: "16px", fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>
               Готовы оптимизировать бизнес-процессы?
             </Title>
             <Paragraph
               style={{
                 color: "#ffffff",
-                fontSize: "18px",
+                fontSize: "clamp(14px, 4vw, 18px)",
                 opacity: 0.9,
                 lineHeight: 1.6,
+                padding: "0 16px",
               }}
             >
               Оставьте заявку и получите бесплатную консультацию от нашего
@@ -1151,21 +1163,21 @@ const HomePage = () => {
             <Card
               style={{
                 backgroundColor: "#ffffff",
-                padding: "48px",
+                padding: "clamp(24px, 5vw, 48px)",
                 borderRadius: "24px",
                 boxShadow: "0 20px 60px rgba(0, 0, 0, 0.15)",
                 border: "none",
               }}
               bodyStyle={{ padding: 0 }}
             >
-              <div style={{ textAlign: "center", marginBottom: "32px" }}>
+              <div style={{ textAlign: "center", marginBottom: "clamp(20px, 5vw, 32px)" }}>
                 <Title
                   level={3}
-                  style={{ color: "#000000", marginBottom: "8px" }}
+                  style={{ color: "#000000", marginBottom: "8px", fontSize: "clamp(1.2rem, 4.5vw, 1.5rem)" }}
                 >
                   Получите коммерческое предложение
                 </Title>
-                <Paragraph style={{ color: "#55646e" }}>
+                <Paragraph style={{ color: "#55646e", fontSize: "clamp(13px, 3.5vw, 14px)" }}>
                   Заполните форму и мы свяжемся с вами
                 </Paragraph>
               </div>
@@ -1175,11 +1187,11 @@ const HomePage = () => {
                 size="large"
                 style={{ width: "100%" }}
               >
-                <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", gap: "16px", flexWrap: "wrap", justifyContent: "center" }}>
                   <Motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    style={{ flex: 1, minWidth: "200px" }}
+                    style={{ flex: 1, minWidth: "200px", width: "100%" }}
                   >
                     <Button
                       type="primary"
@@ -1188,8 +1200,8 @@ const HomePage = () => {
                         width: "100%",
                         backgroundColor: "#19be7d",
                         borderColor: "#19be7d",
-                        height: "56px",
-                        fontSize: "16px",
+                        height: "clamp(48px, 8vw, 56px)",
+                        fontSize: "clamp(14px, 4vw, 16px)",
                         fontWeight: 600,
                         borderRadius: "8px",
                         boxShadow: "0 4px 15px rgba(25, 190, 125, 0.3)",
@@ -1203,7 +1215,7 @@ const HomePage = () => {
                 </div>
 
                 <Divider style={{ margin: "8px 0", color: "#e6e9ec" }}>
-                  <Text type="secondary">или</Text>
+                  <Text type="secondary" style={{ fontSize: "clamp(12px, 3.5vw, 14px)" }}>или</Text>
                 </Divider>
 
                 <div style={{ textAlign: "center" }}>
@@ -1214,12 +1226,14 @@ const HomePage = () => {
                       alignItems: "center",
                       gap: "12px",
                       color: "#19be7d",
-                      fontSize: "20px",
+                      fontSize: "clamp(16px, 4.5vw, 20px)",
                       fontWeight: 700,
-                      padding: "16px 32px",
+                      padding: "clamp(12px, 3vw, 16px) clamp(20px, 5vw, 32px)",
                       backgroundColor: "#f0faf5",
                       borderRadius: "12px",
                       border: "2px solid #b9ebd7",
+                      flexWrap: "wrap",
+                      justifyContent: "center",
                     }}
                     whileHover={{
                       backgroundColor: "#e6f7ef",
@@ -1233,7 +1247,7 @@ const HomePage = () => {
                     style={{
                       color: "#8a9aa4",
                       marginTop: "16px",
-                      fontSize: "14px",
+                      fontSize: "clamp(12px, 3.5vw, 14px)",
                     }}
                   >
                     Бесплатный звонок по России
@@ -1254,6 +1268,7 @@ const HomePage = () => {
               alignItems: "center",
               gap: "12px",
               padding: "0 50px",
+              flexWrap: "wrap",
             }}
           >
             <MessageOutlined style={{ color: "#19be7d" }} />

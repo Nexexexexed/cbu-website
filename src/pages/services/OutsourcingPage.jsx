@@ -49,10 +49,10 @@ const CustomCTAButton = ({
   const serviceColor = "#19be7d";
   
   const baseStyles = {
-    height: "56px",
-    padding: "0 40px",
+    height: "clamp(48px, 8vw, 56px)",
+    padding: "0 clamp(20px, 5vw, 40px)",
     fontWeight: 600,
-    fontSize: "16px",
+    fontSize: "clamp(14px, 4vw, 16px)",
     borderRadius: "8px",
     display: "inline-flex",
     alignItems: "center",
@@ -64,6 +64,7 @@ const CustomCTAButton = ({
     transition: "all 0.3s ease",
     position: "relative",
     overflow: "hidden",
+    whiteSpace: "nowrap",
   };
 
   const primaryStyles = {
@@ -121,7 +122,7 @@ const CustomBenefitCard = ({ icon, title, description }) => {
       style={{
         backgroundColor: "#fff",
         borderRadius: "16px",
-        padding: "30px 20px",
+        padding: "clamp(20px, 5vw, 30px) clamp(16px, 4vw, 20px)",
         textAlign: "center",
         height: "100%",
         width: "100%",
@@ -142,8 +143,8 @@ const CustomBenefitCard = ({ icon, title, description }) => {
     >
       <div
         style={{
-          width: "70px",
-          height: "70px",
+          width: "clamp(60px, 12vw, 70px)",
+          height: "clamp(60px, 12vw, 70px)",
           borderRadius: "12px",
           backgroundColor: `${serviceColor}15`,
           display: "flex",
@@ -153,14 +154,14 @@ const CustomBenefitCard = ({ icon, title, description }) => {
           border: `1px solid ${serviceColor}30`,
         }}
       >
-        <div style={{ fontSize: "32px", color: serviceColor }}>
+        <div style={{ fontSize: "clamp(24px, 6vw, 32px)", color: serviceColor }}>
           {icon}
         </div>
       </div>
-      <Title level={4} style={{ marginBottom: "15px", fontSize: "18px", textAlign: "center" }}>
+      <Title level={4} style={{ marginBottom: "15px", fontSize: "clamp(1rem, 4vw, 1.2rem)", textAlign: "center" }}>
         {title}
       </Title>
-      <Paragraph style={{ color: "#666", margin: 0, textAlign: "center" }}>
+      <Paragraph style={{ color: "#666", margin: 0, textAlign: "center", fontSize: "clamp(13px, 3.5vw, 14px)" }}>
         {description}
       </Paragraph>
     </Motion.div>
@@ -178,14 +179,14 @@ const CustomServiceCard = ({ service }) => {
         borderRadius: "16px",
         border: `1px solid ${service.available ? serviceColor : "#e8e8e8"}`,
         textAlign: "center",
-        height: "320px",
+        minHeight: "clamp(280px, 40vw, 320px)",
         position: "relative",
         backgroundColor: service.available ? "#fff" : "#fafafa",
         opacity: service.available ? 1 : 0.7,
         width: "100%",
         display: "flex",
         flexDirection: "column",
-        padding: "24px",
+        padding: "clamp(16px, 4vw, 24px)",
         cursor: service.available ? "pointer" : "default",
       }}
       whileHover={service.available ? {
@@ -198,7 +199,7 @@ const CustomServiceCard = ({ service }) => {
     >
       {!service.available && (
         <div style={{ position: "absolute", top: "10px", right: "10px" }}>
-          <Tag color="default" style={{ fontSize: "12px", background: "#f0f0f0" }}>
+          <Tag color="default" style={{ fontSize: "clamp(10px, 3vw, 12px)", background: "#f0f0f0" }}>
             <ClockCircleOutlined style={{ marginRight: "4px", color: "#999" }} />
             {service.comingSoon}
           </Tag>
@@ -207,8 +208,8 @@ const CustomServiceCard = ({ service }) => {
       
       <div
         style={{
-          width: "70px",
-          height: "70px",
+          width: "clamp(60px, 12vw, 70px)",
+          height: "clamp(60px, 12vw, 70px)",
           borderRadius: "16px",
           backgroundColor: service.available ? `${serviceColor}15` : "#f0f0f0",
           display: "flex",
@@ -218,7 +219,7 @@ const CustomServiceCard = ({ service }) => {
           flexShrink: 0,
         }}
       >
-        <div style={{ fontSize: "32px", color: service.available ? serviceColor : "#999" }}>
+        <div style={{ fontSize: "clamp(24px, 6vw, 32px)", color: service.available ? serviceColor : "#999" }}>
           {service.icon}
         </div>
       </div>
@@ -228,7 +229,7 @@ const CustomServiceCard = ({ service }) => {
         style={{
           marginBottom: "15px",
           color: service.available ? "#000" : "#999",
-          fontSize: "16px",
+          fontSize: "clamp(0.9rem, 4vw, 1rem)",
           lineHeight: 1.4,
           flexShrink: 0,
         }}
@@ -240,7 +241,7 @@ const CustomServiceCard = ({ service }) => {
         style={{
           color: service.available ? "#666" : "#999",
           marginBottom: "20px",
-          fontSize: "14px",
+          fontSize: "clamp(12px, 3.5vw, 14px)",
           lineHeight: 1.5,
           flex: 1,
           display: "flex",
@@ -257,7 +258,7 @@ const CustomServiceCard = ({ service }) => {
           style={{
             color: serviceColor,
             fontWeight: 600,
-            fontSize: "14px",
+            fontSize: "clamp(12px, 3.5vw, 14px)",
             padding: "0",
             height: "auto",
             marginTop: "auto",
@@ -270,7 +271,7 @@ const CustomServiceCard = ({ service }) => {
           Подробнее →
         </Button>
       ) : (
-        <Paragraph style={{ color: "#999", fontSize: "12px", margin: 0, marginTop: "auto" }}>
+        <Paragraph style={{ color: "#999", fontSize: "clamp(11px, 3vw, 12px)", margin: 0, marginTop: "auto" }}>
           Сервис в разработке
         </Paragraph>
       )}
@@ -289,7 +290,7 @@ const CustomStepCard = ({ step, title, description, icon }) => {
         position: "relative",
         backgroundColor: "#fff",
         borderRadius: "16px",
-        padding: "30px 20px",
+        padding: "clamp(20px, 5vw, 30px) clamp(16px, 4vw, 20px)",
         boxShadow: "0 5px 20px rgba(0, 0, 0, 0.05)",
         border: `1px solid ${serviceColor}20`,
         height: "100%",
@@ -305,8 +306,8 @@ const CustomStepCard = ({ step, title, description, icon }) => {
     >
       <div
         style={{
-          width: "60px",
-          height: "60px",
+          width: "clamp(50px, 10vw, 60px)",
+          height: "clamp(50px, 10vw, 60px)",
           borderRadius: "50%",
           backgroundColor: serviceColor,
           color: "white",
@@ -314,7 +315,7 @@ const CustomStepCard = ({ step, title, description, icon }) => {
           alignItems: "center",
           justifyContent: "center",
           margin: "0 auto 20px",
-          fontSize: "24px",
+          fontSize: "clamp(20px, 5vw, 24px)",
           fontWeight: "bold",
           border: `3px solid ${serviceColor}30`,
         }}
@@ -324,8 +325,8 @@ const CustomStepCard = ({ step, title, description, icon }) => {
       
       <div
         style={{
-          width: "50px",
-          height: "50px",
+          width: "clamp(40px, 8vw, 50px)",
+          height: "clamp(40px, 8vw, 50px)",
           borderRadius: "12px",
           backgroundColor: `${serviceColor}15`,
           display: "flex",
@@ -334,15 +335,15 @@ const CustomStepCard = ({ step, title, description, icon }) => {
           margin: "0 auto 15px",
         }}
       >
-        <div style={{ fontSize: "24px", color: serviceColor }}>
+        <div style={{ fontSize: "clamp(20px, 5vw, 24px)", color: serviceColor }}>
           {icon}
         </div>
       </div>
       
-      <Title level={4} style={{ marginBottom: "15px", fontSize: "18px", marginTop: 0 }}>
+      <Title level={4} style={{ marginBottom: "15px", fontSize: "clamp(1rem, 4vw, 1.2rem)", marginTop: 0 }}>
         {title}
       </Title>
-      <Paragraph style={{ color: "#666", fontSize: "14px", lineHeight: 1.5, margin: 0 }}>
+      <Paragraph style={{ color: "#666", fontSize: "clamp(12px, 3.5vw, 14px)", lineHeight: 1.5, margin: 0 }}>
         {description}
       </Paragraph>
     </Motion.div>
@@ -351,7 +352,7 @@ const CustomStepCard = ({ step, title, description, icon }) => {
 
 const OutsourcingPage = () => {
   const navigate = useNavigate();
-  const serviceColor = "#19be7d"; // ЗЕЛЕНЫЙ цвет
+  const serviceColor = "#19be7d";
 
   const services = [
     {
@@ -442,8 +443,8 @@ const OutsourcingPage = () => {
   ];
 
   return (
-    <div style={{ padding: "40px 20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-      <div style={{ height: "60px" }}></div>
+    <div style={{ padding: "clamp(20px, 5vw, 40px) clamp(16px, 4vw, 20px)", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+      <div style={{ height: "clamp(50px, 10vw, 60px)" }}></div>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <Card
           style={{
@@ -456,8 +457,8 @@ const OutsourcingPage = () => {
           {/* Hero Section */}
           <div
             style={{
-              background: `linear-gradient(135deg, ${serviceColor} 0%, #14a36b 100%)`, // ЗЕЛЕНЫЙ градиент
-              padding: "60px 40px",
+              background: `linear-gradient(135deg, ${serviceColor} 0%, #14a36b 100%)`,
+              padding: "clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px)",
               textAlign: "center",
               color: "white",
               borderRadius: "20px",
@@ -466,33 +467,33 @@ const OutsourcingPage = () => {
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
               <div
                 style={{
-                  width: "100px",
-                  height: "100px",
+                  width: "clamp(70px, 15vw, 100px)",
+                  height: "clamp(70px, 15vw, 100px)",
                   borderRadius: "50%",
                   backgroundColor: "rgba(255, 255, 255, 0.2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  margin: "0 auto 30px",
+                  margin: "0 auto clamp(20px, 5vw, 30px)",
                 }}
               >
-                <BuildOutlined style={{ fontSize: "48px", color: "white" }} />
+                <BuildOutlined style={{ fontSize: "clamp(32px, 8vw, 48px)", color: "white" }} />
               </div>
               
-              <Title level={1} style={{ color: "white", marginBottom: "20px" }}>
+              <Title level={1} style={{ color: "white", marginBottom: "20px", fontSize: "clamp(1.5rem, 6vw, 2.5rem)" }}>
                 Аутсорсинг бизнес-процессов
               </Title>
               
-              <Paragraph style={{ fontSize: "20px", color: "rgba(255, 255, 255, 0.9)", maxWidth: "800px", margin: "0 auto" }}>
+              <Paragraph style={{ fontSize: "clamp(14px, 4vw, 20px)", color: "rgba(255, 255, 255, 0.9)", maxWidth: "800px", margin: "0 auto" }}>
                 Передавайте непрофильные функции на обслуживание профессионалам и сосредоточьтесь на развитии бизнеса
               </Paragraph>
             </Motion.div>
           </div>
 
-          <div style={{ padding: "60px 40px" }}>
+          <div style={{ padding: "clamp(30px, 6vw, 60px) clamp(20px, 5vw, 40px)" }}>
             {/* Benefits Section */}
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Title level={3} style={{ textAlign: "center", marginBottom: "50px" }}>
+              <Title level={3} style={{ textAlign: "center", marginBottom: "clamp(30px, 6vw, 50px)", fontSize: "clamp(1.2rem, 5vw, 1.5rem)" }}>
                 Преимущества аутсорсинга
               </Title>
               
@@ -509,11 +510,11 @@ const OutsourcingPage = () => {
               </Row>
             </Motion.div>
 
-            <Divider style={{ margin: "60px 0" }} />
+            <Divider style={{ margin: "clamp(40px, 8vw, 60px) 0" }} />
 
             {/* Services Section */}
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Title level={3} style={{ textAlign: "center", marginBottom: "50px" }}>
+              <Title level={3} style={{ textAlign: "center", marginBottom: "clamp(30px, 6vw, 50px)", fontSize: "clamp(1.2rem, 5vw, 1.5rem)" }}>
                 Наши услуги аутсорсинга
               </Title>
               
@@ -526,11 +527,11 @@ const OutsourcingPage = () => {
               </Row>
             </Motion.div>
 
-            <Divider style={{ margin: "60px 0" }} />
+            <Divider style={{ margin: "clamp(40px, 8vw, 60px) 0" }} />
 
             {/* How it Works Section */}
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Title level={3} style={{ textAlign: "center", marginBottom: "50px" }}>
+              <Title level={3} style={{ textAlign: "center", marginBottom: "clamp(30px, 6vw, 50px)", fontSize: "clamp(1.2rem, 5vw, 1.5rem)" }}>
                 Как передать процессы на аутсорсинг?
               </Title>
               
@@ -552,11 +553,11 @@ const OutsourcingPage = () => {
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
               <div
                 style={{
-                  backgroundColor: serviceColor, // ЗЕЛЕНЫЙ фон
+                  backgroundColor: serviceColor,
                   borderRadius: "20px",
-                  padding: "60px 40px",
+                  padding: "clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px)",
                   textAlign: "center",
-                  marginTop: "60px",
+                  marginTop: "clamp(40px, 8vw, 60px)",
                   color: "white",
                   position: "relative",
                   overflow: "hidden",
@@ -587,15 +588,23 @@ const OutsourcingPage = () => {
                 />
                 
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <Title level={2} style={{ color: "white", marginBottom: "20px" }}>
+                  <Title level={2} style={{ color: "white", marginBottom: "20px", fontSize: "clamp(1.3rem, 5vw, 2rem)" }}>
                     Готовы оптимизировать бизнес-процессы?
                   </Title>
                   
-                  <Paragraph style={{ fontSize: "18px", marginBottom: "40px", opacity: 0.9 }}>
+                  <Paragraph style={{ fontSize: "clamp(14px, 4vw, 18px)", marginBottom: "clamp(30px, 6vw, 40px)", opacity: 0.9, padding: "0 16px" }}>
                     Оставьте заявку и получите бесплатный аудит ваших бизнес-процессов
                   </Paragraph>
                   
-                  <Space size="large" wrap style={{ justifyContent: "center" }}>
+                  <Space 
+                    size="middle" 
+                    wrap 
+                    style={{ 
+                      justifyContent: "center", 
+                      display: "flex",
+                      gap: "clamp(12px, 3vw, 20px)",
+                    }}
+                  >
                     <CustomCTAButton
                       variant="primary"
                       onClick={() => navigate("/contacts")}
@@ -612,10 +621,9 @@ const OutsourcingPage = () => {
                     </CustomCTAButton>
                   </Space>
                   
-                  {/* Дополнительный текст под кнопками */}
                   <Paragraph 
                     style={{ 
-                      fontSize: "14px", 
+                      fontSize: "clamp(12px, 3.5vw, 14px)", 
                       marginTop: "24px", 
                       opacity: 0.8,
                       fontStyle: "italic"

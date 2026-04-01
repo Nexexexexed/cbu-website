@@ -17,6 +17,7 @@ import "./Header.css";
 
 import logo from "../assets/images/logo.svg";
 import rubelIcon from "../assets/images/ruble.svg";
+import rubleGreenIcon from "../assets/images/ruble_green.svg";
 
 const Header = ({ isTransparent }) => {
   const [visible, setVisible] = useState(false);
@@ -50,7 +51,6 @@ const Header = ({ isTransparent }) => {
     ],
   };
 
-  // Создаем кастомные пункты меню без использования стандартных компонентов Ant Design
   const mainMenuItems = [
     {
       key: "services",
@@ -127,7 +127,6 @@ const Header = ({ isTransparent }) => {
     },
   ];
 
-  // Мобильные пункты меню (с подменю) - исправленная версия
   const mobileMenuItems = [
     {
       key: "services",
@@ -184,7 +183,7 @@ const Header = ({ isTransparent }) => {
     {
       key: "pricing",
       icon: <img 
-        src={rubelIcon} 
+        src={rubleGreenIcon} 
         alt="Рубли" 
         style={{ width: "16px", height: "16px" }} 
       />,
@@ -218,7 +217,6 @@ const Header = ({ isTransparent }) => {
     if (e.key === "services") {
       setMobileServicesOpen(!mobileServicesOpen);
     } else {
-      // Для остальных пунктов закрываем меню
       setTimeout(() => {
         setVisible(false);
       }, 300);
@@ -232,7 +230,7 @@ const Header = ({ isTransparent }) => {
       }`}
     >
       <div className="header-container">
-        {/* Логотип - теперь это переход на главную */}
+        {/* Логотип */}
         <div
           className="logo"
           onClick={() => navigate("/")}
@@ -244,16 +242,9 @@ const Header = ({ isTransparent }) => {
         {/* Десктопное меню */}
         <div className="desktop-menu">
           <div className="nav-menu-container">
-            {/* Создаем свое меню без использования Ant Design Menu */}
-            <div
-              className="main-nav-menu"
-              style={{ display: "flex", alignItems: "center" }}
-            >
+            <div className="main-nav-menu">
               {mainMenuItems.map((item) => (
-                <div
-                  key={item.key}
-                  style={{ display: "flex", alignItems: "center" }}
-                >
+                <div key={item.key} style={{ display: "flex", alignItems: "center" }}>
                   {item.label}
                 </div>
               ))}
@@ -285,18 +276,20 @@ const Header = ({ isTransparent }) => {
           />
 
           <Drawer
+            placement="right"
             closable={false}
             onClose={onClose}
             open={visible}
+            width="320px"
             styles={{
               header: {
                 borderBottom: "1px solid #e6e9ec",
+                padding: "20px 20px 16px",
               },
               body: {
-                padding: "0",
+                padding: 0,
               },
             }}
-            size="default"
             className="mobile-drawer"
           >
             <Menu
@@ -304,7 +297,6 @@ const Header = ({ isTransparent }) => {
               items={mobileMenuItems}
               onClick={handleMobileMenuClick}
               onOpenChange={(openKeys) => {
-                // Обрабатываем открытие/закрытие подменю
                 if (openKeys.includes("services")) {
                   setMobileServicesOpen(true);
                 } else {

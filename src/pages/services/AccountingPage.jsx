@@ -34,10 +34,10 @@ const CustomCTAButton = ({
   const serviceColor = "#19be7d";
   
   const baseStyles = {
-    height: "56px",
-    padding: "0 40px",
+    height: "clamp(48px, 8vw, 56px)",
+    padding: "0 clamp(20px, 5vw, 40px)",
     fontWeight: 600,
-    fontSize: "16px",
+    fontSize: "clamp(14px, 4vw, 16px)",
     borderRadius: "8px",
     display: "inline-flex",
     alignItems: "center",
@@ -49,6 +49,7 @@ const CustomCTAButton = ({
     transition: "all 0.3s ease",
     position: "relative",
     overflow: "hidden",
+    whiteSpace: "nowrap",
   };
 
   const primaryStyles = {
@@ -124,9 +125,9 @@ const AccountingPage = () => {
   ];
 
   return (
-    <div style={{ padding: "40px 20px", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+    <div style={{ padding: "clamp(20px, 5vw, 40px) clamp(16px, 4vw, 20px)", backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        <div style={{height:"60px"}}></div>
+        <div style={{ height: "clamp(50px, 10vw, 60px)" }}></div>
 
         <Card
           style={{
@@ -139,7 +140,7 @@ const AccountingPage = () => {
           <div
             style={{
               background: `linear-gradient(135deg, ${serviceColor} 0%, #14a36b 100%)`,
-              padding: "60px 40px",
+              padding: "clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px)",
               textAlign: "center",
               color: "white",
               borderRadius: "20px",
@@ -148,30 +149,30 @@ const AccountingPage = () => {
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
               <div
                 style={{
-                  width: "100px",
-                  height: "100px",
+                  width: "clamp(70px, 15vw, 100px)",
+                  height: "clamp(70px, 15vw, 100px)",
                   borderRadius: "50%",
                   backgroundColor: "rgba(255, 255, 255, 0.2)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  margin: "0 auto 30px",
+                  margin: "0 auto clamp(20px, 5vw, 30px)",
                 }}
               >
-                <CalculatorOutlined style={{ fontSize: "48px", color: "white" }} />
+                <CalculatorOutlined style={{ fontSize: "clamp(32px, 8vw, 48px)", color: "white" }} />
               </div>
               
-              <Title level={1} style={{ color: "white", marginBottom: "20px" }}>
+              <Title level={1} style={{ color: "white", marginBottom: "20px", fontSize: "clamp(1.5rem, 6vw, 2.5rem)" }}>
                 Бухгалтерское обслуживание
               </Title>
               
-              <Paragraph style={{ fontSize: "20px", color: "rgba(255, 255, 255, 0.9)", maxWidth: "800px", margin: "0 auto" }}>
+              <Paragraph style={{ fontSize: "clamp(14px, 4vw, 20px)", color: "rgba(255, 255, 255, 0.9)", maxWidth: "800px", margin: "0 auto" }}>
                 Комплекс бухгалтерских услуг для юридических лиц. Постановка, ведение, восстановление бухгалтерского и налогового учета.
               </Paragraph>
             </Motion.div>
           </div>
 
-          <div style={{ padding: "60px 40px" }}>
+          <div style={{ padding: "clamp(30px, 6vw, 60px) clamp(20px, 5vw, 40px)" }}>
 
             {sections.map((section, sectionIndex) => (
               <Motion.div 
@@ -182,7 +183,7 @@ const AccountingPage = () => {
                 transition={{ delay: sectionIndex * 0.1 }}
               >
                 <div style={{ marginBottom: "30px" }}>
-                  <Title level={3} style={{ color: serviceColor, marginBottom: "40px", textAlign: "center" }}>
+                  <Title level={3} style={{ color: serviceColor, marginBottom: "clamp(30px, 6vw, 40px)", textAlign: "center", fontSize: "clamp(1.2rem, 5vw, 1.8rem)" }}>
                     {section.title}
                   </Title>
                   <Row gutter={[24, 24]}>
@@ -202,10 +203,10 @@ const AccountingPage = () => {
                               display: "flex",
                               alignItems: "flex-start",
                               gap: "15px",
-                              padding: "20px",
+                              padding: "clamp(16px, 4vw, 20px)",
                               backgroundColor: "#f8f9fa",
                               borderRadius: "10px",
-                              minHeight: "100px",
+                              minHeight: "clamp(80px, 15vw, 100px)",
                               transform: "translateX(4px)",
                             }}
                           >
@@ -224,7 +225,9 @@ const AccountingPage = () => {
                             >
                               <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
                             </div>
-                            <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{item}</Paragraph>
+                            <Paragraph style={{ margin: 0, fontSize: "clamp(14px, 3.5vw, 16px)", lineHeight: 1.6, flex: 1 }}>
+                              {item}
+                            </Paragraph>
                           </div>
                         </div>
                       </Col>
@@ -235,40 +238,40 @@ const AccountingPage = () => {
             ))}
 
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <Divider style={{ margin: "60px 0" }} />
+              <Divider style={{ margin: "clamp(40px, 8vw, 60px) 0" }} />
               
               <div
                 style={{
                   backgroundColor: "#f0faf5",
                   borderRadius: "20px",
-                  padding: "50px",
+                  padding: "clamp(30px, 6vw, 50px) clamp(20px, 5vw, 40px)",
                   textAlign: "center",
                   border: `2px solid ${serviceColor}40`,
                 }}
               >
-                <Title level={3} style={{ marginBottom: "20px", color: "#000" }}>
+                <Title level={3} style={{ marginBottom: "20px", color: "#000", fontSize: "clamp(1.2rem, 5vw, 1.8rem)" }}>
                   Почему выбирают нас?
                 </Title>
                 
                 <Row gutter={[32, 32]} style={{ marginTop: "40px" }}>
                   <Col xs={24} md={8}>
                     <div style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "40px", fontWeight: "bold", color: serviceColor }}>20+</div>
-                      <Paragraph style={{ fontWeight: 500 }}>Лет опыта</Paragraph>
+                      <div style={{ fontSize: "clamp(32px, 8vw, 40px)", fontWeight: "bold", color: serviceColor }}>20+</div>
+                      <Paragraph style={{ fontWeight: 500, fontSize: "clamp(14px, 3.5vw, 16px)" }}>Лет опыта</Paragraph>
                     </div>
                   </Col>
                   
                   <Col xs={24} md={8}>
                     <div style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "40px", fontWeight: "bold", color: serviceColor }}>99.8%</div>
-                      <Paragraph style={{ fontWeight: 500 }}>Точность отчетности</Paragraph>
+                      <div style={{ fontSize: "clamp(32px, 8vw, 40px)", fontWeight: "bold", color: serviceColor }}>99.8%</div>
+                      <Paragraph style={{ fontWeight: 500, fontSize: "clamp(14px, 3.5vw, 16px)" }}>Точность отчетности</Paragraph>
                     </div>
                   </Col>
                   
                   <Col xs={24} md={8}>
                     <div style={{ textAlign: "center" }}>
-                      <div style={{ fontSize: "40px", fontWeight: "bold", color: serviceColor }}>24/7</div>
-                      <Paragraph style={{ fontWeight: 500 }}>Поддержка клиентов</Paragraph>
+                      <div style={{ fontSize: "clamp(32px, 8vw, 40px)", fontWeight: "bold", color: serviceColor }}>24/7</div>
+                      <Paragraph style={{ fontWeight: 500, fontSize: "clamp(14px, 3.5vw, 16px)" }}>Поддержка клиентов</Paragraph>
                     </div>
                   </Col>
                 </Row>
@@ -281,9 +284,9 @@ const AccountingPage = () => {
                 style={{
                   backgroundColor: serviceColor,
                   borderRadius: "20px",
-                  padding: "60px 40px",
+                  padding: "clamp(40px, 8vw, 60px) clamp(20px, 5vw, 40px)",
                   textAlign: "center",
-                  marginTop: "60px",
+                  marginTop: "clamp(40px, 8vw, 60px)",
                   color: "white",
                   position: "relative",
                   overflow: "hidden",
@@ -314,15 +317,23 @@ const AccountingPage = () => {
                 />
                 
                 <div style={{ position: "relative", zIndex: 1 }}>
-                  <Title level={2} style={{ color: "white", marginBottom: "20px" }}>
+                  <Title level={2} style={{ color: "white", marginBottom: "20px", fontSize: "clamp(1.3rem, 5vw, 2rem)" }}>
                     Готовы передать бухгалтерию профессионалам?
                   </Title>
                   
-                  <Paragraph style={{ fontSize: "18px", marginBottom: "40px", opacity: 0.9 }}>
+                  <Paragraph style={{ fontSize: "clamp(14px, 4vw, 18px)", marginBottom: "clamp(30px, 6vw, 40px)", opacity: 0.9, padding: "0 16px" }}>
                     Оставьте заявку и получите бесплатную консультацию от нашего эксперта
                   </Paragraph>
                   
-                  <Space size="large" wrap style={{ justifyContent: "center" }}>
+                  <Space 
+                    size="middle" 
+                    wrap 
+                    style={{ 
+                      justifyContent: "center", 
+                      display: "flex",
+                      gap: "clamp(12px, 3vw, 20px)",
+                    }}
+                  >
                     <CustomCTAButton
                       variant="primary"
                       onClick={() => navigate("/contacts")}
@@ -341,7 +352,7 @@ const AccountingPage = () => {
                   
                   <Paragraph 
                     style={{ 
-                      fontSize: "14px", 
+                      fontSize: "clamp(12px, 3.5vw, 14px)", 
                       marginTop: "24px", 
                       opacity: 0.8,
                       fontStyle: "italic"
