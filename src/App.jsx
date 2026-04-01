@@ -57,7 +57,7 @@ function App() {
   }, [location.pathname]);
 
   const footerData = {
-    copyright: `© ИП «КЕЙС КОНСАЛТИНГ», ${new Date().getFullYear()}`,
+    copyright: `© «КЕЙС КОНСАЛТИНГ», ${new Date().getFullYear()}`,
   };
 
   return (

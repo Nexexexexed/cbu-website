@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   Card,
   Typography,
@@ -13,7 +13,6 @@ import {
   Space,
   Divider,
   ConfigProvider,
-  theme,
 } from 'antd';
 import {
   CalculatorOutlined,
@@ -25,43 +24,110 @@ import { motion } from 'framer-motion';
 const { Title, Text, Paragraph } = Typography;
 const { Option } = Select;
 
-// Моковые данные (можно вынести в отдельный файл)
-const mockData = {
-  basePrices: {
-    'Нулевая отчетность': { Патент: 0, 'УСН 6%': 3000, 'УСН 15%': 3500, ОСНО: 5000 },
-    Старт: { Патент: 8500, 'УСН 6%': 9500, 'УСН 15%': 15000, ОСНО: 22000 },
-    Базовый: { Патент: 13175, 'УСН 6%': 14725, 'УСН 15%': 23250, ОСНО: 34100 },
-    Стандарт: { Патент: 22398, 'УСН 6%': 25033, 'УСН 15%': 33713, ОСНО: 49445 },
-    Оптимальный: { Патент: 35836, 'УСН 6%': 40052, 'УСН 15%': 48884, ОСНО: 66751 },
-    Стабильный: { Патент: 46587, 'УСН 6%': 66086, 'УСН 15%': 70882, ОСНО: 96789 },
-    Профессиональный: { Патент: 72210, 'УСН 6%': 102433, 'УСН 15%': 88587, ОСНО: 120986 },
-    Максимальный: { Патент: 90262, 'УСН 6%': 128041, 'УСН 15%': 110734, ОСНО: 151233 },
-    Индивидуальный: { Патент: null, 'УСН 6%': null, 'УСН 15%': null, ОСНО: null },
-  },
-  employeeLimits: {
-    'Нулевая отчетность': 0,
-    Старт: 2,
-    Базовый: 4,
-    Стандарт: 6,
-    Оптимальный: 8,
-    Стабильный: 10,
-    Профессиональный: 15,
-    Максимальный: 20,
-    Индивидуальный: Infinity,
-  },
-  extraEmployeeCost: 1200,
-  cashRegisterCost: 1500,
-  coefficients: {
-    marketplace: 0.2,
-    production: 0.2,
-    importExport: 0.25,
-    separateDivision: 0.25,
-    combineSystems: 0.3,
-    usnWithVat: 0.25,
-  },
-  primaryRange: { min: 30, max: 80 },
+// ---------- Тарифы, лимиты ----------
+const tariffNames = [
+  'Нулевая отчетность',
+  'Старт',
+  'Базовый',
+  'Стандарт',
+  'Оптимальный',
+  'Стабильный',
+  'Профессиональный',
+  'Максимальный',
+  'Индивидуальный',
+];
+
+// Лимиты операций (из строки 3 Excel)
+const operationLimits = {
+  'Нулевая отчетность': 0,
+  Старт: 25,
+  Базовый: 50,
+  Стандарт: 101,
+  Оптимальный: 201,
+  Стабильный: 301,
+  Профессиональный: 501,
+  Максимальный: 701,
+  Индивидуальный: Infinity,
 };
 
+// Лимиты сотрудников
+const employeeLimits = {
+  'Нулевая отчетность': 0,
+  Старт: 2,
+  Базовый: 4,
+  Стандарт: 6,
+  Оптимальный: 8,
+  Стабильный: 10,
+  Профессиональный: 15,
+  Максимальный: 20,
+  Индивидуальный: Infinity,
+};
+
+const extraEmployeeCost = 1200;
+const cashRegisterCost = 1500;
+
+// Коэффициенты для дополнительных опций
+const coefficients = {
+  marketplace: 0.2,
+  production: 0.2,
+  importExport: 0.25,
+  separateDivision: 0.25,
+  combineSystems: 0.3,
+  usnWithVat: 0.25,
+};
+
+// ---------- Базовые цены для тарифа "Старт" (как в таблице) ----------
+const startPrices = {
+  Патент: 8500,
+  'УСН 6%': 9500,
+  'УСН 15%': 15000,
+  ОСНО: 22000,
+};
+
+// Цены для "Нулевая отчетность" (разовые)
+const zeroReportingPrices = {
+  Патент: 0,
+  'УСН 6%': 3000,
+  'УСН 15%': 3500,
+  ОСНО: 5000,
+};
+
+// Коэффициенты повышения для последующих тарифов (по строкам Excel)
+// Формат: [тариф_от_которого_считаем, множитель_для_патента, множитель_для_УСН6, множитель_для_УСН15, множитель_для_ОСНО]
+const upgradeCoefficients = {
+  Базовый:    { prev: 'Старт', factor: { Патент: 1.55, 'УСН 6%': 1.55, 'УСН 15%': 1.55, ОСНО: 1.55 } },
+  Стандарт:   { prev: 'Базовый', factor: { Патент: 1.70, 'УСН 6%': 1.70, 'УСН 15%': 1.45, ОСНО: 1.45 } },
+  Оптимальный:{ prev: 'Стандарт', factor: { Патент: 1.60, 'УСН 6%': 1.60, 'УСН 15%': 1.45, ОСНО: 1.35 } },
+  Стабильный: { prev: 'Оптимальный', factor: { Патент: 1.30, 'УСН 6%': 1.65, 'УСН 15%': 1.45, ОСНО: 1.45 } },
+  Профессиональный: { prev: 'Стабильный', factor: { Патент: 1.55, 'УСН 6%': 1.55, 'УСН 15%': 1.55, ОСНО: 1.25 } },
+  Максимальный:{ prev: 'Профессиональный', factor: { Патент: 1.25, 'УСН 6%': 1.25, 'УСН 15%': 1.25, ОСНО: 1.25 } },
+};
+
+// Вычисление всех базовых цен по формулам
+const computeAllBasePrices = () => {
+  const prices = {};
+  prices['Нулевая отчетность'] = { ...zeroReportingPrices };
+  prices['Старт'] = { ...startPrices };
+
+  for (const tariff of tariffNames) {
+    if (tariff === 'Нулевая отчетность' || tariff === 'Старт') continue;
+    const up = upgradeCoefficients[tariff];
+    if (!up) continue;
+    const prevPrices = prices[up.prev];
+    if (!prevPrices) continue;
+    prices[tariff] = {};
+    for (const tax of Object.keys(prevPrices)) {
+      prices[tariff][tax] = Math.round(prevPrices[tax] * up.factor[tax]);
+    }
+  }
+  // Для "Индивидуальный" оставляем null (по договорённости)
+  prices['Индивидуальный'] = { Патент: null, 'УСН 6%': null, 'УСН 15%': null, ОСНО: null };
+  return prices;
+};
+
+const basePrices = computeAllBasePrices();
+
+// ---------- Юридические услуги ----------
 const legalServices = [
   { name: 'Первичная консультация', base: 0, msk: 0 },
   { name: 'Консультация с изучением документов', base: 3000, msk: 5000 },
@@ -84,7 +150,7 @@ const legalServices = [
 
 const serviceColor = '#19be7d';
 
-// Тема для ConfigProvider с зелёным цветом
+// Тема для ConfigProvider (зелёная)
 const greenTheme = {
   token: {
     colorPrimary: serviceColor,
@@ -97,30 +163,15 @@ const greenTheme = {
     colorLink: serviceColor,
     colorLinkHover: '#14a36b',
     colorLinkActive: '#0f8a58',
-    colorSuccess: serviceColor,
-    colorWarning: serviceColor,
-    colorError: serviceColor,
-    colorInfo: serviceColor,
     borderRadius: 8,
     controlItemBgHover: '#f0faf5',
     controlItemBgActive: '#e6f7ef',
     controlItemBgActiveHover: '#d9f0e6',
   },
   components: {
-    Checkbox: {
-      colorPrimary: serviceColor,
-      colorPrimaryHover: '#14a36b',
-    },
-    Radio: {
-      colorPrimary: serviceColor,
-      colorPrimaryHover: '#14a36b',
-    },
-    Slider: {
-      colorPrimary: serviceColor,
-      colorPrimaryHover: '#14a36b',
-      colorPrimaryBorder: serviceColor,
-      colorPrimaryBorderHover: '#14a36b',
-    },
+    Checkbox: { colorPrimary: serviceColor, colorPrimaryHover: '#14a36b' },
+    Radio: { colorPrimary: serviceColor, colorPrimaryHover: '#14a36b' },
+    Slider: { colorPrimary: serviceColor, colorPrimaryHover: '#14a36b', colorPrimaryBorder: serviceColor, colorPrimaryBorderHover: '#14a36b' },
     Tabs: {
       colorPrimary: serviceColor,
       colorPrimaryHover: '#14a36b',
@@ -164,12 +215,13 @@ const greenTheme = {
 const PriceCalculator = () => {
   const [activeTab, setActiveTab] = useState('accounting');
 
-  // Состояние для бухгалтерского калькулятора
+  // Состояние бухгалтерского калькулятора
   const [accounting, setAccounting] = useState({
     plan: 'Старт',
     taxSystem: 'УСН 6%',
     employees: 1,
     cashRegisters: 0,
+    operations: 10,                     // новое поле
     marketplaces: false,
     production: false,
     importExport: false,
@@ -181,55 +233,117 @@ const PriceCalculator = () => {
     advanceChecks: 0,
   });
 
-  // Состояние для юридического калькулятора
+  // Состояние юридического калькулятора
   const [legal, setLegal] = useState({
     selectedService: legalServices[0].name,
     region: 'base',
   });
 
-  // Расчёт бухгалтерской стоимости
+  // Функция для автоматического подбора тарифа по количеству операций
+  const getSuitableTariff = (operations) => {
+    if (operations === 0) return 'Нулевая отчетность';
+    const suitable = tariffNames.find(t => operationLimits[t] >= operations);
+    return suitable || 'Индивидуальный';
+  };
+
+  // Обработка изменения количества операций – автоматически меняем тариф
+  const handleOperationsChange = (value) => {
+    const newOperations = value || 0;
+    const suitableTariff = getSuitableTariff(newOperations);
+    setAccounting(prev => ({
+      ...prev,
+      operations: newOperations,
+      plan: suitableTariff,
+    }));
+  };
+
+  // При ручном изменении тарифа проверяем, не превышает ли он лимит операций
+  const handlePlanChange = (newPlan) => {
+    const currentOps = accounting.operations;
+    const limit = operationLimits[newPlan];
+    if (limit !== undefined && currentOps > limit && limit !== Infinity) {
+      // Если превышает – подбираем подходящий тариф
+      const suitable = getSuitableTariff(currentOps);
+      setAccounting(prev => ({ ...prev, plan: suitable }));
+    } else {
+      setAccounting(prev => ({ ...prev, plan: newPlan }));
+    }
+  };
+
+  // Расчёт итоговой стоимости бухгалтерских услуг
   const calculateAccountingTotal = () => {
-    const { plan, taxSystem, employees, cashRegisters, marketplaces, production, importExport, separateDivision, combineSystems, usnWithVat, primaryPercent, advanceReports, advanceChecks } = accounting;
+    const {
+      plan, taxSystem, employees, cashRegisters,
+      marketplaces, production, importExport,
+      separateDivision, combineSystems, usnWithVat,
+      primaryPercent, advanceReports, advanceChecks,
+    } = accounting;
 
-    let base = mockData.basePrices[plan]?.[taxSystem];
+    let base = basePrices[plan]?.[taxSystem];
     if (base === null || base === undefined) return 'Индивидуально';
-    if (plan === 'Нулевая отчетность') base = 0;
+    if (plan === 'Нулевая отчетность') {
+      // Для нулевой отчетности база уже правильная, но она разовая
+      let total = base;
 
+      // Доплата за сотрудников (если есть)
+      const limit = employeeLimits[plan];
+      if (employees > limit) {
+        total += (employees - limit) * extraEmployeeCost;
+      }
+      total += cashRegisters * cashRegisterCost;
+
+      // Применяем коэффициенты
+      let multiplier = 1.0;
+      if (marketplaces) multiplier += coefficients.marketplace;
+      if (production) multiplier += coefficients.production;
+      if (importExport) multiplier += coefficients.importExport;
+      if (separateDivision) multiplier += coefficients.separateDivision;
+      if (combineSystems) multiplier += coefficients.combineSystems;
+      if (usnWithVat && (taxSystem === 'УСН 6%' || taxSystem === 'УСН 15%')) {
+        multiplier += coefficients.usnWithVat;
+      }
+      total *= multiplier;
+
+      if (primaryPercent > 0) total *= (1 + primaryPercent / 100);
+      if (advanceReports > 0) {
+        total += advanceReports * 1000;
+        const extraChecks = Math.max(0, advanceChecks - advanceReports * 10);
+        total += extraChecks * 390;
+      }
+      return Math.round(total);
+    }
+
+    // Обычные тарифы (ежемесячные)
     let total = base;
 
-    const limit = mockData.employeeLimits[plan];
-    if (employees > limit) {
-      total += (employees - limit) * mockData.extraEmployeeCost;
+    const employeeLimit = employeeLimits[plan];
+    if (employees > employeeLimit) {
+      total += (employees - employeeLimit) * extraEmployeeCost;
     }
-
-    total += cashRegisters * mockData.cashRegisterCost;
+    total += cashRegisters * cashRegisterCost;
 
     let multiplier = 1.0;
-    if (marketplaces) multiplier += mockData.coefficients.marketplace;
-    if (production) multiplier += mockData.coefficients.production;
-    if (importExport) multiplier += mockData.coefficients.importExport;
-    if (separateDivision) multiplier += mockData.coefficients.separateDivision;
-    if (combineSystems) multiplier += mockData.coefficients.combineSystems;
+    if (marketplaces) multiplier += coefficients.marketplace;
+    if (production) multiplier += coefficients.production;
+    if (importExport) multiplier += coefficients.importExport;
+    if (separateDivision) multiplier += coefficients.separateDivision;
+    if (combineSystems) multiplier += coefficients.combineSystems;
     if (usnWithVat && (taxSystem === 'УСН 6%' || taxSystem === 'УСН 15%')) {
-      multiplier += mockData.coefficients.usnWithVat;
+      multiplier += coefficients.usnWithVat;
     }
-
     total *= multiplier;
 
-    if (primaryPercent > 0) {
-      total *= (1 + primaryPercent / 100);
-    }
-
+    if (primaryPercent > 0) total *= (1 + primaryPercent / 100);
     if (advanceReports > 0) {
       total += advanceReports * 1000;
       const extraChecks = Math.max(0, advanceChecks - advanceReports * 10);
       total += extraChecks * 390;
     }
-
     return Math.round(total);
   };
 
   const accountingTotal = calculateAccountingTotal();
+  const isZeroReporting = accounting.plan === 'Нулевая отчетность';
 
   const getLegalPrice = () => {
     const service = legalServices.find(s => s.name === legal.selectedService);
@@ -239,7 +353,6 @@ const PriceCalculator = () => {
     return price;
   };
 
-  // Обработчики изменений
   const handleAccountingChange = (field, value) => {
     setAccounting(prev => ({ ...prev, [field]: value }));
   };
@@ -285,11 +398,11 @@ const PriceCalculator = () => {
                               <Text strong style={{ fontSize: 16 }}>Тарифный план</Text>
                               <Select
                                 value={accounting.plan}
-                                onChange={v => handleAccountingChange('plan', v)}
+                                onChange={handlePlanChange}
                                 style={{ width: '100%', marginTop: 4 }}
                                 size="large"
                               >
-                                {Object.keys(mockData.basePrices).map(p => (
+                                {tariffNames.map(p => (
                                   <Option key={p} value={p}>{p}</Option>
                                 ))}
                               </Select>
@@ -311,6 +424,21 @@ const PriceCalculator = () => {
                             </div>
 
                             <div>
+                              <Text strong style={{ fontSize: 16 }}>Количество операций/документов</Text>
+                              <InputNumber
+                                min={0}
+                                value={accounting.operations}
+                                onChange={handleOperationsChange}
+                                style={{ width: '100%', marginTop: 4 }}
+                                size="large"
+                              />
+                              <Text type="secondary" style={{ fontSize: 12, display: 'block', marginTop: 4 }}>
+                                Лимит тарифа: {operationLimits[accounting.plan] === Infinity ? 'не ограничен' : operationLimits[accounting.plan]}
+                                {operationLimits[accounting.plan] < accounting.operations && ' (превышение лимита, будет предложен подходящий тариф)'}
+                              </Text>
+                            </div>
+
+                            <div>
                               <Text strong style={{ fontSize: 16 }}>Количество сотрудников</Text>
                               <InputNumber
                                 min={0}
@@ -320,7 +448,8 @@ const PriceCalculator = () => {
                                 size="large"
                               />
                               <Text type="secondary" style={{ fontSize: 12, display: 'block', marginTop: 4 }}>
-                                Лимит по тарифу: {mockData.employeeLimits[accounting.plan]}
+                                Лимит по тарифу: {employeeLimits[accounting.plan]}
+                                {isZeroReporting && ' (при наличии сотрудников добавляется доплата)'}
                               </Text>
                             </div>
 
@@ -345,42 +474,36 @@ const PriceCalculator = () => {
                             <Checkbox
                               checked={accounting.marketplaces}
                               onChange={e => handleAccountingChange('marketplaces', e.target.checked)}
-                              style={{ fontSize: 15 }}
                             >
                               Маркетплейсы (+20%)
                             </Checkbox>
                             <Checkbox
                               checked={accounting.production}
                               onChange={e => handleAccountingChange('production', e.target.checked)}
-                              style={{ fontSize: 15 }}
                             >
                               Производство / строительство / общепит (+20%)
                             </Checkbox>
                             <Checkbox
                               checked={accounting.importExport}
                               onChange={e => handleAccountingChange('importExport', e.target.checked)}
-                              style={{ fontSize: 15 }}
                             >
                               Импорт или экспорт (+25%)
                             </Checkbox>
                             <Checkbox
                               checked={accounting.separateDivision}
                               onChange={e => handleAccountingChange('separateDivision', e.target.checked)}
-                              style={{ fontSize: 15 }}
                             >
                               Обособленное подразделение (+25%)
                             </Checkbox>
                             <Checkbox
                               checked={accounting.combineSystems}
                               onChange={e => handleAccountingChange('combineSystems', e.target.checked)}
-                              style={{ fontSize: 15 }}
                             >
                               Совмещение систем (+30%)
                             </Checkbox>
                             <Checkbox
                               checked={accounting.usnWithVat}
                               onChange={e => handleAccountingChange('usnWithVat', e.target.checked)}
-                              style={{ fontSize: 15 }}
                             >
                               УСН с НДС (+25%)
                             </Checkbox>
@@ -390,7 +513,7 @@ const PriceCalculator = () => {
                         <Card size="small" style={{ borderRadius: 12, border: `1px solid ${serviceColor}20` }}>
                           <Space direction="vertical" size="middle" style={{ width: '100%' }}>
                             <div>
-                              <Text strong style={{ fontSize: 16 }}>Ведение первички: {accounting.primaryPercent}%</Text>
+                              <Text strong style={{ fontSize: 16 }}>Ведение первичной документации: {accounting.primaryPercent}%</Text>
                               <Slider
                                 min={0}
                                 max={80}
@@ -400,7 +523,6 @@ const PriceCalculator = () => {
                                 tipFormatter={v => `${v}%`}
                               />
                             </div>
-
                             <div>
                               <Text strong style={{ fontSize: 16 }}>Количество авансовых отчётов</Text>
                               <InputNumber
@@ -411,7 +533,6 @@ const PriceCalculator = () => {
                                 size="large"
                               />
                             </div>
-
                             <div>
                               <Text strong style={{ fontSize: 16 }}>Всего чеков в авансовых отчётах</Text>
                               <InputNumber
@@ -441,11 +562,12 @@ const PriceCalculator = () => {
                           overflow: 'hidden',
                         }}
                       >
-                        <div style={{ 
+                        <div style={{
                           background: `linear-gradient(135deg, ${serviceColor} 0%, #14a36b 100%)`,
                           padding: '32px 24px',
                           textAlign: 'center',
-                          color: '#fff'
+                          color: '#fff',
+                          borderRadius: 16,
                         }}>
                           <Title level={2} style={{ color: '#fff', margin: 0, fontSize: '2.5rem' }}>
                             {typeof accountingTotal === 'number'
@@ -453,14 +575,14 @@ const PriceCalculator = () => {
                               : accountingTotal}
                           </Title>
                           <Text style={{ color: 'rgba(255,255,255,0.9)', fontSize: 16 }}>
-                            {accounting.plan === 'Нулевая отчетность' ? 'Разовый платёж' : 'в месяц'}
+                            {isZeroReporting ? 'Разовый платёж' : 'в месяц'}
                           </Text>
                         </div>
-                        
+
                         <div style={{ padding: '24px' }}>
-                          <div style={{ 
-                            backgroundColor: '#f0faf5', 
-                            borderRadius: 8, 
+                          <div style={{
+                            backgroundColor: '#f0faf5',
+                            borderRadius: 8,
                             padding: 16,
                             marginBottom: 16,
                             border: `1px solid ${serviceColor}20`
@@ -472,16 +594,16 @@ const PriceCalculator = () => {
                               </Text>
                             </Space>
                           </div>
-                          
+
                           <Paragraph style={{ textAlign: 'center', color: '#666', margin: 0 }}>
                             Окончательная стоимость рассчитывается индивидуально после анализа документов и может отличаться.
                           </Paragraph>
-                          
+
                           <Divider style={{ margin: '24px 0' }} />
-                          
+
                           <div style={{ textAlign: 'center' }}>
                             <Text strong style={{ color: serviceColor, fontSize: 16, display: 'block', marginBottom: 8 }}>
-                              В стоимость включено:
+                              {isZeroReporting ? 'В стоимость разового платежа включено:' : 'В стоимость включено:'}
                             </Text>
                             <Space direction="vertical" size="small" style={{ width: '100%', textAlign: 'left' }}>
                               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -540,8 +662,8 @@ const PriceCalculator = () => {
                                 value={legal.region}
                                 style={{ marginTop: 8, display: 'block' }}
                               >
-                                <Radio value="base" style={{ fontSize: 15 }}>Регионы</Radio>
-                                <Radio value="msk" style={{ fontSize: 15 }}>Москва / СПб</Radio>
+                                <Radio value="base">Регионы</Radio>
+                                <Radio value="msk">Москва / СПб</Radio>
                               </Radio.Group>
                             </div>
                           </Space>
@@ -563,11 +685,12 @@ const PriceCalculator = () => {
                           overflow: 'hidden',
                         }}
                       >
-                        <div style={{ 
+                        <div style={{
                           background: `linear-gradient(135deg, ${serviceColor} 0%, #14a36b 100%)`,
                           padding: '32px 24px',
                           textAlign: 'center',
-                          color: '#fff'
+                          color: '#fff',
+                          borderRadius: 16,
                         }}>
                           <Title level={2} style={{ color: '#fff', margin: 0, fontSize: '2.5rem' }}>
                             {getLegalPrice()}
@@ -576,11 +699,11 @@ const PriceCalculator = () => {
                             ориентировочная стоимость
                           </Text>
                         </div>
-                        
+
                         <div style={{ padding: '24px' }}>
-                          <div style={{ 
-                            backgroundColor: '#f0faf5', 
-                            borderRadius: 8, 
+                          <div style={{
+                            backgroundColor: '#f0faf5',
+                            borderRadius: 8,
                             padding: 16,
                             marginBottom: 16,
                             border: `1px solid ${serviceColor}20`
@@ -592,13 +715,13 @@ const PriceCalculator = () => {
                               </Text>
                             </Space>
                           </div>
-                          
+
                           <Paragraph style={{ textAlign: 'center', color: '#666', margin: 0 }}>
                             Точная стоимость определяется после изучения деталей и сложности задачи.
                           </Paragraph>
-                          
+
                           <Divider style={{ margin: '24px 0' }} />
-                          
+
                           <div style={{ textAlign: 'center' }}>
                             <Text strong style={{ color: serviceColor, fontSize: 16, display: 'block', marginBottom: 8 }}>
                               В стоимость может входить:

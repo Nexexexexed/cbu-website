@@ -23,11 +23,11 @@ import {
 import { motion as Motion } from "framer-motion";
 
 // Импортируем фото сотрудников
-import elenaPhoto from "../assets/images/about_photo.jpg";
+import elenaPhoto from "../assets/images/Elena.jpg";
 import yuliaPhoto from "../assets/images/about_photo.jpg";
-import ekaterinaPhoto from "../assets/images/about_photo.jpg";
-import lyudmilaPhoto from "../assets/images/about_photo.jpg";
-import tatyanaPhoto from "../assets/images/about_photo.jpg";
+import ekaterinaPhoto from "../assets/images/Ekaterina.jpg";
+import lyudmilaPhoto from "../assets/images/Ludmila.jpg";
+import tatyanaPhoto from "../assets/images/Tatyana.jpg";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -64,7 +64,7 @@ const teamMembers = [
       "Проводит глубокий анализ управленческой отчетности для оптимизации затрат и повышения эффективности бизнеса"
     ],
     specialization: [
-      "Ведение бухгалтерского и налогового учета 'с нуля' для малых и средних предприятий",
+      "Ведение бухгалтерского и налогового учета 'с нуля' для малых, средних и крупных предприятий",
       "Подготовка и сдача отчетности в контролирующие органы",
       "Разработка управленческих бюджетов, cash-flow прогнозов и KPI-анализа",
       "Аудит и восстановление учета, минимизации налоговых рисков",

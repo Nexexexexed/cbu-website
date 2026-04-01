@@ -144,6 +144,7 @@ const LegalPage = () => {
               padding: "60px 40px",
               textAlign: "center",
               color: "white",
+              borderRadius: "20px",
             }}
           >
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">
@@ -197,33 +198,44 @@ const LegalPage = () => {
                 <Row gutter={[24, 24]}>
                   {businessServices.map((service, index) => (
                     <Col xs={24} sm={12} key={index}>
+                      {/* Зеленый фон-подложка */}
                       <div
                         style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "15px",
-                          padding: "20px",
-                          backgroundColor: "#f8f9fa",
+                          backgroundColor: serviceColor,
                           borderRadius: "12px",
-                          minHeight: "100px",
+                          padding: "0 0 0 8px",
                         }}
                       >
+                        {/* Серый блок, сдвинутый вправо */}
                         <div
                           style={{
-                            width: "24px",
-                            height: "24px",
-                            borderRadius: "50%",
-                            backgroundColor: serviceColor,
                             display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexShrink: 0,
-                            marginTop: "4px",
+                            alignItems: "flex-start",
+                            gap: "15px",
+                            padding: "20px",
+                            backgroundColor: "#f8f9fa",
+                            borderRadius: "10px",
+                            minHeight: "100px",
+                            transform: "translateX(4px)",
                           }}
                         >
-                          <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
+                          <div
+                            style={{
+                              width: "24px",
+                              height: "24px",
+                              borderRadius: "50%",
+                              backgroundColor: serviceColor,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                              marginTop: "4px",
+                            }}
+                          >
+                            <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
+                          </div>
+                          <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{service}</Paragraph>
                         </div>
-                        <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{service}</Paragraph>
                       </div>
                     </Col>
                   ))}
@@ -248,33 +260,44 @@ const LegalPage = () => {
                 <Row gutter={[24, 24]}>
                   {personalServices.map((service, index) => (
                     <Col xs={24} sm={12} key={index}>
+                      {/* Зеленый фон-подложка */}
                       <div
                         style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "15px",
-                          padding: "20px",
-                          backgroundColor: "#f8f9fa",
+                          backgroundColor: serviceColor,
                           borderRadius: "12px",
-                          minHeight: "100px",
+                          padding: "0 0 0 8px",
                         }}
                       >
+                        {/* Серый блок, сдвинутый вправо */}
                         <div
                           style={{
-                            width: "24px",
-                            height: "24px",
-                            borderRadius: "50%",
-                            backgroundColor: serviceColor,
                             display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexShrink: 0,
-                            marginTop: "4px",
+                            alignItems: "flex-start",
+                            gap: "15px",
+                            padding: "20px",
+                            backgroundColor: "#f8f9fa",
+                            borderRadius: "10px",
+                            minHeight: "100px",
+                            transform: "translateX(4px)",
                           }}
                         >
-                          <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
+                          <div
+                            style={{
+                              width: "24px",
+                              height: "24px",
+                              borderRadius: "50%",
+                              backgroundColor: serviceColor,
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexShrink: 0,
+                              marginTop: "4px",
+                            }}
+                          >
+                            <CheckOutlined style={{ color: "white", fontSize: "12px", fontWeight: "bold" }} />
+                          </div>
+                          <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{service}</Paragraph>
                         </div>
-                        <Paragraph style={{ margin: 0, fontSize: "16px", lineHeight: 1.6 }}>{service}</Paragraph>
                       </div>
                     </Col>
                   ))}

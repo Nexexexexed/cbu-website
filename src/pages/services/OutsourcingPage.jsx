@@ -460,6 +460,7 @@ const OutsourcingPage = () => {
               padding: "60px 40px",
               textAlign: "center",
               color: "white",
+              borderRadius: "20px",
             }}
           >
             <Motion.div variants={fadeInUp} initial="initial" animate="animate">

@@ -226,6 +226,7 @@ const PricingPage = () => {
                 padding: '60px 40px',
                 textAlign: 'center',
                 color: '#fff',
+                borderRadius: 20,
               }}
             >
               <Title level={1} style={{ color: '#fff', marginBottom: 20 }}>
